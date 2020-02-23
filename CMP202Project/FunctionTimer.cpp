@@ -7,11 +7,13 @@ FunctionTimer::FunctionTimer()
 
 FunctionTimer::~FunctionTimer()
 {
+	timings.clear(); // this calls the destructor of each element;
 }
 
-void FunctionTimer::NewTiming(string name, void(*function)(),int iterations, bool consoleOut)
+TimingData *  FunctionTimer::NewTiming(string name, void(*function)(),int iterations, bool consoleOut)
 {
-	timings.add(new TimingData(name, function, iterations, consoleOut));
+	timings[name] = new TimingData(name, function, iterations, consoleOut);
+	return timings[name];
 }
 
 

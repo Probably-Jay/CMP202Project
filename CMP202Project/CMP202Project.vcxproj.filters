@@ -21,9 +21,15 @@
     <ClCompile Include="FunctionTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TimingData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FunctionTimer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TimingData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -11,7 +11,9 @@ void test() {
 
 int main() {
 	FunctionTimer timer;
-	timer.callFunc(test);
+	//timer.callFunc(test);
+	timer.NewTiming("test", test, 10000);
+	
 
 
 }
