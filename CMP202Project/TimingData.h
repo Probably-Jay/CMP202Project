@@ -5,13 +5,14 @@
 #include <string>
 #include <vector>
 #include <map>
-
+#include <algorithm>
 
 using std::string;
 using std::ofstream;
 using std::to_string;
 using std::vector;
 using std::map;
+using std::sort;
 
 using namespace std::chrono;
 
@@ -52,13 +53,13 @@ public:
 
 		auto timingList = timings;
 
-		std::sort(timingList.begin(), timingList.end()); // sort the list so we can find the middle value
+		sort(timingList.begin(), timingList.end()); // sort the list so we can find the middle value
 
-		float medTime = timingList[timingList.size / (int)2]; // get the middle time
+		medianTiming = timingList[timingList.size() / (int)2]; // get the middle time
 
-		record(to_string(medTime)); // record the time
+		record(to_string(medianTiming)); // record the time
 
-		return medTime;
+		return medianTiming;
 
 	}
 	
@@ -72,7 +73,7 @@ public:
 	inline void callFunc(void(*f)()) { (*f)(); };
 	string name;
 	vector<double> timings;
-
+	float medianTiming;
 
 private:
 	time_point<steady_clock> beginTime;
