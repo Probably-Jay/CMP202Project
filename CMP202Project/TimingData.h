@@ -20,16 +20,23 @@ class TimingData
 public:
 	TimingData(string name, void (*f)(), int ittr, bool consoleOut) :name(name), function(f), iterations(ittr), consoleOut(consoleOut) {
 		auto timeStart = system_clock::to_time_t(system_clock::now()); // current time for file name
-		std::string filename = "Timings\\" + name + to_string(timeStart) + ".csv";
+		filename = "Timings\\" + name + to_string(timeStart) + ".csv";
+		
 		file.open(filename);
-		RunTiming();
+		
 	}
 	~TimingData() {
 		if (file.is_open())
 			file.close();
 	}
 
+	void Close() {
+		if (file.is_open())
+			file.close();
+	}
+
 	void RunTiming() {
+		tryOpen();
 		for (int i = 0; i < iterations; i++) {
 			beginTime = high_resolution_clock::now();
 			callFunc(function); // inline function call to do the timed function
@@ -41,16 +48,40 @@ public:
 		}
 	}
 
-	inline void callFunc(void(*f)()) { (*f)(); };
+	double CalculateMedianTime() {
 
+		auto timingList = timings;
+
+		std::sort(timingList.begin(), timingList.end()); // sort the list so we can find the middle value
+
+		float medTime = timingList[timingList.size / (int)2]; // get the middle time
+
+		record(to_string(medTime)); // record the time
+
+		return medTime;
+
+	}
+	
+	void record(string data) {
+		tryOpen();
+		file << '\n' + data;
+	}
+	inline void tryOpen() {
+		if (!file.is_open()) { file.open(filename);};
+	}
+	inline void callFunc(void(*f)()) { (*f)(); };
+	string name;
+	vector<double> timings;
+
+
+private:
 	time_point<steady_clock> beginTime;
 	time_point<steady_clock> endTime;
 	duration<double> elapsedTime;
-	string name;
+	string filename;
 	ofstream file;
 	void (*function)(); // function to time
 	int iterations;
-	vector<double> timings;
 	bool consoleOut;
 
 	
