@@ -5,14 +5,16 @@ using std::cout;
 using std::endl;
 
 void test() {
-	cout << "hello" << endl;
+	//cout << "hello" << endl;
+	int i = 1;
+	int j = 2;
+	float k = 0.25f * i + 0.75f + j;
 }
 
 
 int main() {
 	FunctionTimer timer;
-	//timer.callFunc(test);
-	timer.NewTiming("test", test, 10000);
+	timer.NewTiming("test", test, 10000, true);
 	
 
 

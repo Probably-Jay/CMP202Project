@@ -1,20 +1,12 @@
 ﻿  FunctionTimer.cpp
   Source.cpp
-D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.h(58,55): warning C4244: '=': conversion from '_Ty' to 'float', possible loss of data
-D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.h(58,55): warning C4244:         with
-D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.h(58,55): warning C4244:         [
-D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.h(58,55): warning C4244:             _Ty=double
-D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.h(58,55): warning C4244:         ]
   TimingData.cpp
-D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.h(58,55): warning C4244: '=': conversion from '_Ty' to 'float', possible loss of data
-D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.h(58,55): warning C4244:         with
-D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.h(58,55): warning C4244:         [
-D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.h(58,55): warning C4244:             _Ty=double
-D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.h(58,55): warning C4244:         ]
+D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.cpp(36,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.cpp(36,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Generating Code...
-D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.h(58,55): warning C4244: '=': conversion from '_Ty' to 'float', possible loss of data
-D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.h(58,55): warning C4244:         with
-D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.h(58,55): warning C4244:         [
-D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.h(58,55): warning C4244:             _Ty=double
-D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.h(58,55): warning C4244:         ]
+D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.cpp(48,54): warning C4244: '=': conversion from '_Ty' to 'float', possible loss of data
+D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.cpp(48,54): warning C4244:         with
+D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.cpp(48,54): warning C4244:         [
+D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.cpp(48,54): warning C4244:             _Ty=double
+D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\TimingData.cpp(48,54): warning C4244:         ]
   CMP202Project.vcxproj -> D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\Debug\CMP202Project.exe

@@ -12,7 +12,7 @@ using std::vector;
 using std::map;
 
 
-
+// class that times functions and stores the timings as TimingData classes
 class FunctionTimer
 {
 public:
