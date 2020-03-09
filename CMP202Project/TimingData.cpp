@@ -35,6 +35,7 @@ void TimingData::RunTiming()
 		file << output;
 		if (consoleOut) { outputProgress(i,iterations); }
 	}
+	file << endl;
 	if (consoleOut) { ouputEnd(); }
 }
 
@@ -56,7 +57,7 @@ double TimingData::CalculateMedianTime()
 void TimingData::record(string data)
 {
 	tryOpen();
-	file << '\n' + data;
+	file << data << endl;
 }
 
 void TimingData::outputProgress(float progress, float total)
@@ -71,7 +72,7 @@ void TimingData::outputProgress(float progress, float total)
 
 void TimingData::ouputEnd()
 {
-	cout << "\b"; cout << "\b"; cout << "\b"; cout << "\b"; cout << "\b"; cout << "\b";
+	cout << "\b"; cout << "\b"; cout << "\b"; cout << "\b"; cout << "\b"; cout << "\b";  // XX.XX%
 	cout << "100.00%" << endl;	
 }
 

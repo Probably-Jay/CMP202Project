@@ -1,6 +1,8 @@
 #include "FunctionTimer.h"
 #include <iostream>
+#include <thread>
 
+using thread_local;
 using std::cout;
 using std::endl;
 
@@ -16,6 +18,8 @@ int main() {
 	FunctionTimer timer;
 	timer.NewTiming("test", test, 10000, true);
 	
+
+	parallel_for_each(
 
 
 }
