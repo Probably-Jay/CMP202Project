@@ -65,9 +65,10 @@ int main() {
 	//FunctionTimer timer;
 	//timer.NewTiming("test", test, 10000, true);
 
-
-	for (int y = 0; y < WIDTH / 2.f; y++) {
-		for (int x = 0; x < HEIGHT / 2.f; x++) {
+	int quaterH = HEIGHT * 0.25f;
+	int quaterW = WIDTH * 0.25f;
+	for (int y = quaterH; y < quaterH+ HEIGHT / 2.f; y++) {
+		for (int x = quaterW; x < quaterW + WIDTH / 2.f; x++) {
 			image[y][x] = 0xFFFFFFFF;
 		}
 	}

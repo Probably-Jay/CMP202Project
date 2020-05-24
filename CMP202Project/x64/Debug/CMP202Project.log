@@ -1,0 +1,4 @@
+﻿  Source.cpp
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202Project\CMP202Project\Source.cpp(68,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202Project\CMP202Project\Source.cpp(69,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  CMP202Project.vcxproj -> C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202Project\x64\Debug\CMP202Project.exe
