@@ -3,7 +3,7 @@
 TimingData::TimingData(string name, void(*f)(), int ittr, bool consoleOut)
 	:name(name), function(f), iterations(ittr), consoleOut(consoleOut)
 {
-	auto timeStart = system_clock::to_time_t(system_clock::now()); // current time for file name
+	auto timeStart = system_clock::to_time_t(system_clock::now()); // current time to create unique file name (ensures no overwite)
 	filename = "Timings\\" + name + to_string(timeStart) + ".csv";
 
 	file.open(filename);

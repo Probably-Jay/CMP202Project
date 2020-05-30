@@ -124,11 +124,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FunctionTimer.cpp" />
+    <ClCompile Include="Semaphore.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="TimingData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FunctionTimer.h" />
+    <ClInclude Include="Semaphore.h" />
     <ClInclude Include="TimingData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
