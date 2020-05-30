@@ -9,11 +9,15 @@
 
 #include <thread>
 
+#include <chrono>
 
 using std::lock;
+using std::thread;
 using std::mutex;
 using std::cout;
 using std::endl;
+
+
 
 const int WIDTH = 1920;
 const int HEIGHT = 1200;
@@ -31,7 +35,12 @@ void test() {
 	__cplusplus;
 }
 
+Semaphore sem(1);
 
+void WaitAndSignal() {
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+	sem.Signal();
+}
 
 int main() {
 	//FunctionTimer timer;
@@ -46,8 +55,13 @@ int main() {
 	//}
 	//write_tga("output.tga");
 	
-
-
+	cout << "one"<<endl;
+	sem.Wait();
+	cout << "two" << endl;
+	thread t(WaitAndSignal);
+	sem.Wait();
+	cout << "three" << endl;
+	t.join();
 }
 
 
