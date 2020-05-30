@@ -35,11 +35,25 @@ void test() {
 	__cplusplus;
 }
 
-Semaphore sem(1);
+Semaphore sem(0);
+mutex coutMutex;
 
 void WaitAndSignal() {
-	std::this_thread::sleep_for(std::chrono::seconds(2));
-	sem.Signal();
+	for (int i = 0; i < 100; i++)
+	{
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+		sem.Signal(); 
+		
+	}
+}
+void printNum(int num) {
+	for (int i = 0; i < 100; i++) {
+		sem.Wait();
+		{
+			std::lock_guard<mutex> lock(coutMutex);
+			cout << num << endl;
+		}
+	}
 }
 
 int main() {
@@ -55,13 +69,12 @@ int main() {
 	//}
 	//write_tga("output.tga");
 	
-	cout << "one"<<endl;
-	sem.Wait();
-	cout << "two" << endl;
-	thread t(WaitAndSignal);
-	sem.Wait();
-	cout << "three" << endl;
-	t.join();
+	
+	thread t01(WaitAndSignal), t02(WaitAndSignal),t03(WaitAndSignal), t04(WaitAndSignal), t05(WaitAndSignal);
+	thread t1(printNum,1)/*,t2(printNum,2),t3(printNum,3)*/;
+	
+	t01.join(); t02.join();t03.join(); t04.join();t05.join();
+	t1.join();/* t2.join(); t3.join();*/
 }
 
 
