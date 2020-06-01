@@ -1,16 +1,16 @@
 #include "Semaphore.h"
 
 Semaphore::Semaphore(int _initial)
-	:poolCount(_initial)
+	:	poolCount((_initial>=0&&_initial<=INT_MAX-1)?_initial:0)
 {
 
 }
+
 
 void Semaphore::Signal()
 {
 	{ // mutex scope
 		unique_lock<mutex> lock(mut); // aquire mutex lock as required by condition variable, RAII
-		
 		poolCount++;
 		
 	}

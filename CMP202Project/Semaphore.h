@@ -20,6 +20,5 @@ private:
 	mutex mut;
 	condition_variable cv;
 	int poolCount;
-	int maxPoolSize;
 };
 

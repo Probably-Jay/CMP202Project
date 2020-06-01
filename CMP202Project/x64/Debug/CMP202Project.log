@@ -1,4 +1,3 @@
-﻿  Semaphore.cpp
-  Source.cpp
-  Generating Code...
+﻿  Source.cpp
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\Source.cpp(58,6): warning C4101: 'b': unreferenced local variable
   CMP202Project.vcxproj -> C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\x64\Debug\CMP202Project.exe
