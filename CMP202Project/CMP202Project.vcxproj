@@ -124,6 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Channel.cpp" />
+    <ClCompile Include="Cracker.cpp" />
     <ClCompile Include="FunctionTimer.cpp" />
     <ClCompile Include="Semaphore.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -131,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Channel.h" />
+    <ClInclude Include="Cracker.h" />
     <ClInclude Include="FunctionTimer.h" />
     <ClInclude Include="Semaphore.h" />
     <ClInclude Include="TimingData.h" />

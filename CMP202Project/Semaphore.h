@@ -14,10 +14,10 @@ class Semaphore
 {
 public:
 	Semaphore(int _initial = 0);
-	void Signal();
-	void Wait();
+	void Signal(); // increment pool count, wake up a sleeping thread on wait
+	void Wait(); // suspend thread until pool count is greater than 0, decrement pool count
 private:
-	mutex mut;
+	mutex poolMutex;
 	condition_variable cv;
 	int poolCount;
 };
