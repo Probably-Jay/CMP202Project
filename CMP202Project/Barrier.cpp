@@ -1,6 +1,6 @@
 #include "Barrier.h"
 
-Barrier::Barrier(int _numberOfThreads)
+Barrier::Barrier(const int _numberOfThreads)
 	: limit(_numberOfThreads)
 	, count(0)
 	, barrierUseCount(0)

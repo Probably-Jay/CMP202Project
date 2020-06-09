@@ -5,6 +5,7 @@
 using std::string;
 using std::vector;
 using std::lock_guard;
+
 template<class T>
 class Channel
 {
