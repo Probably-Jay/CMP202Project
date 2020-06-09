@@ -126,6 +126,7 @@
     <ClCompile Include="Channel.cpp" />
     <ClCompile Include="Cracker.cpp" />
     <ClCompile Include="FunctionTimer.cpp" />
+    <ClCompile Include="PasswordGeneratorThreadWrapper.cpp" />
     <ClCompile Include="Semaphore.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="TimingData.cpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="Channel.h" />
     <ClInclude Include="Cracker.h" />
     <ClInclude Include="FunctionTimer.h" />
+    <ClInclude Include="PasswordGeneratorThreadWrapper.h" />
     <ClInclude Include="Semaphore.h" />
     <ClInclude Include="TimingData.h" />
   </ItemGroup>

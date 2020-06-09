@@ -15,6 +15,8 @@ using std::hash;
 using std::size_t;
 
 #define DEFAULTMAXBUFFERSIZE 1000
+#define DEFAULNUMBEROFGENERATORTHREADS 2
+
 
 class Cracker
 {
@@ -24,17 +26,21 @@ public:
 	enum PasswordComplexity :int; 
 	
 	// public member functions
-	Cracker(size_t _hash, PasswordComplexity _passwordComplexity, int _maxChannelBufferSize = DEFAULTMAXBUFFERSIZE);
+	Cracker(size_t _hash, PasswordComplexity _passwordComplexity, int _numberOfGeneratorThreads = DEFAULNUMBEROFGENERATORTHREADS, int _maxChannelBufferSize = DEFAULTMAXBUFFERSIZE);
 	~Cracker();
 
 	
 
 private:
 	// private member funcitons
+	void SegmentPossiblePasswordGuesses();
 	void GeneratePasswordGuesses();
 	void PerformHash();
 	void CompareHashToTarget();
 	string WaitForEndOfSearch();
+
+	inline bool addOne(char& c);
+	
 
 	// member variables
 	const size_t targetHash;
@@ -42,12 +48,18 @@ private:
 	/*bool searching = false;
 	mutex searchingMutex;*/
 
+	const int numberOfGeneratorThreads;
+
 	const PasswordComplexity passwordComplexity;
 
 	const int maxChannelBufferSize;
 	Channel<string> plainTextChannel; // plaintext guesses are generated and pushed onto here
 	Channel<PasswordHashPair> hashChannel; // guesses are hashed then pushed onto here
 	Channel<string> passwordTextOutChannel; // used only once if the correct password is found
+
+	// allowed characters for password generation are the continuous block of characters from ' '(32) to '~'(126)
+	const char MINCHAR; // minimum character that can be used in password guess generation, ' '
+	const char MAXCHAR; // maximim, '~'
 
 public:
 	// contained structure and enum definitions
