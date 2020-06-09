@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Barrier.cpp" />
     <ClCompile Include="Channel.cpp" />
     <ClCompile Include="Cracker.cpp" />
     <ClCompile Include="FunctionTimer.cpp" />
@@ -132,6 +133,7 @@
     <ClCompile Include="TimingData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Barrier.h" />
     <ClInclude Include="Channel.h" />
     <ClInclude Include="Cracker.h" />
     <ClInclude Include="FunctionTimer.h" />

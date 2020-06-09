@@ -42,6 +42,9 @@
     <ClCompile Include="PasswordGeneratorThreadWrapper.cpp">
       <Filter>Source Files\ThreadWrappersSource</Filter>
     </ClCompile>
+    <ClCompile Include="Barrier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FunctionTimer.h">
@@ -61,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="PasswordGeneratorThreadWrapper.h">
       <Filter>Header Files\ThreadWrappersHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="Barrier.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
