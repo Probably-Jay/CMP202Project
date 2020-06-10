@@ -19,6 +19,9 @@
     <Filter Include="Source Files\ThreadWrappersSource">
       <UniqueIdentifier>{36404eb4-2862-44f1-9d80-1810138ea457}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Template Files">
+      <UniqueIdentifier>{9c3005f8-5e73-44f3-96f3-31c9b53507dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -33,16 +36,13 @@
     <ClCompile Include="Semaphore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Channel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Cracker.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PasswordGeneratorThreadWrapper.cpp">
       <Filter>Source Files\ThreadWrappersSource</Filter>
     </ClCompile>
     <ClCompile Include="Barrier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PasswordCracker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,14 +59,19 @@
     <ClInclude Include="Channel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Cracker.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PasswordGeneratorThreadWrapper.h">
       <Filter>Header Files\ThreadWrappersHeader</Filter>
     </ClInclude>
     <ClInclude Include="Barrier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PasswordCracker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Channel.tpp">
+      <Filter>Template Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

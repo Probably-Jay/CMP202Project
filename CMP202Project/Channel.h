@@ -26,3 +26,4 @@ private:
 };
 
 
+#include "Channel.tpp"

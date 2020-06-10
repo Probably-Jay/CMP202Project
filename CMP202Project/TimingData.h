@@ -27,21 +27,24 @@ public:
 
 	~TimingData();
 
-	void Close();
 
 	void RunTiming();
 
 	double CalculateMedianTime();
 	
-	void record(string data);
+	void Record(string data);
 
-	void outputProgress(float progress, float total);
-	void ouputEnd();
-	void outputBegin();
+	void OutputProgress(float progress, float total);
+	void OuputEnd();
+	void OutputBegin();
 
-	inline void tryOpen() {if (!file.is_open()) { file.open(filename);};}
+	inline void TryOpen() {if (!file.is_open()) { file.open(filename);};}
 
-	inline void callFunc(void(*f)()){(*f)();}; // calls function pointer
+	inline void TryClose() {if (file.is_open()) { file.close();};}
+
+	//inline void TryClose() {file.is_open() ? file.close() : void();}
+
+	inline void CallFunc(void(*f)()){(*f)();}; // calls function pointer
 
 	string name;
 	vector<double> timings;

@@ -1,4 +1,4 @@
-#include "Channel.h"
+#pragma once
 
 
 template<class T>

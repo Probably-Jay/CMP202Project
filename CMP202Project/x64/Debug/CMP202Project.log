@@ -1,12 +1,18 @@
-﻿  Cracker.cpp
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\Cracker.cpp(40,25): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+﻿  Barrier.cpp
+  PasswordCracker.cpp
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(40,25): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  FunctionTimer.cpp
   PasswordGeneratorThreadWrapper.cpp
+  Semaphore.cpp
+  Source.cpp
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\Source.cpp(58,6): warning C4101: 'b': unreferenced local variable
+  TimingData.cpp
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingData.cpp(31,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingData.cpp(31,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingData.cpp(44,54): warning C4244: '=': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
   Generating Code...
-Cracker.obj : error LNK2019: unresolved external symbol "public: __cdecl Channel<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > >::Channel<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > >(int)" (??0?$Channel@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@@QEAA@H@Z) referenced in function "public: __cdecl Cracker::Cracker(int,int)" (??0Cracker@@QEAA@HH@Z)
-Cracker.obj : error LNK2019: unresolved external symbol "public: void __cdecl Channel<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > >::Write(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?Write@?$Channel@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@@QEAAXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) referenced in function "private: void __cdecl Cracker::CompareHashToTarget(void)" (?CompareHashToTarget@Cracker@@AEAAXXZ)
-PasswordGeneratorThreadWrapper.obj : error LNK2001: unresolved external symbol "public: void __cdecl Channel<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > >::Write(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?Write@?$Channel@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@@QEAAXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
-Cracker.obj : error LNK2019: unresolved external symbol "public: class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > __cdecl Channel<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > >::Read(void)" (?Read@?$Channel@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@@QEAA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ) referenced in function "private: void __cdecl Cracker::PerformHash(void)" (?PerformHash@Cracker@@AEAAXXZ)
-Cracker.obj : error LNK2019: unresolved external symbol "public: __cdecl Channel<struct Cracker::PasswordHashPair>::Channel<struct Cracker::PasswordHashPair>(int)" (??0?$Channel@UPasswordHashPair@Cracker@@@@QEAA@H@Z) referenced in function "public: __cdecl Cracker::Cracker(int,int)" (??0Cracker@@QEAA@HH@Z)
-Cracker.obj : error LNK2019: unresolved external symbol "public: void __cdecl Channel<struct Cracker::PasswordHashPair>::Write(struct Cracker::PasswordHashPair)" (?Write@?$Channel@UPasswordHashPair@Cracker@@@@QEAAXUPasswordHashPair@Cracker@@@Z) referenced in function "private: void __cdecl Cracker::PerformHash(void)" (?PerformHash@Cracker@@AEAAXXZ)
-Cracker.obj : error LNK2019: unresolved external symbol "public: struct Cracker::PasswordHashPair __cdecl Channel<struct Cracker::PasswordHashPair>::Read(void)" (?Read@?$Channel@UPasswordHashPair@Cracker@@@@QEAA?AUPasswordHashPair@Cracker@@XZ) referenced in function "private: void __cdecl Cracker::CompareHashToTarget(void)" (?CompareHashToTarget@Cracker@@AEAAXXZ)
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\x64\Debug\CMP202Project.exe : fatal error LNK1120: 6 unresolved externals
+  CMP202Project.vcxproj -> C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\x64\Debug\CMP202Project.exe

@@ -1,6 +1,6 @@
-#include "Cracker.h"
+#include "PasswordCracker.h"
 
-Cracker::Cracker(const int _numberOfGeneratorThreads, const int _maxChannelBufferSize)
+PasswordCracker::PasswordCracker(const int _numberOfGeneratorThreads, const int _maxChannelBufferSize)
 	: targetHash(NULL)
 	, maxChannelBufferSize(_maxChannelBufferSize)
 	, plainTextPasswordGuessChannel(maxChannelBufferSize)
@@ -17,23 +17,23 @@ Cracker::Cracker(const int _numberOfGeneratorThreads, const int _maxChannelBuffe
 	}
 }
 
-Cracker::~Cracker()
+PasswordCracker::~PasswordCracker()
 {
 	for (auto& t : generatorThreads) {
 		delete t;
 	}
 }
 
-void Cracker::CrackPassword(std::size_t _hash)
+void PasswordCracker::CrackPassword(std::size_t _hash)
 {
 	targetHash = _hash;
-	//thread mainGenerator(&Cracker::GeneratePasswordGuesses,this);
+	thread mainGenerator(&PasswordCracker::GeneratePasswordGuesses,this); // starts a thread that manages multiple generator threads
+
 
 }
 
-void Cracker::SegmentPossiblePasswordGuesses()
+void PasswordCracker::SegmentPossiblePasswordGuesses() // upated the information generator threads use
 {
-	
 
 	int numberOfCharacters = 95; // "a-z" + "A-Z" + "0-9" + " !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~" - continuous chars from ' ' to '~'
 
@@ -45,7 +45,7 @@ void Cracker::SegmentPossiblePasswordGuesses()
 	
 }
 
-void Cracker::GeneratePasswordGuesses()
+void PasswordCracker::GeneratePasswordGuesses() // manages generator threads 
 {
 
 	SegmentPossiblePasswordGuesses(); // initialise generator threads
@@ -57,7 +57,7 @@ void Cracker::GeneratePasswordGuesses()
 	}
 }
 
-void Cracker::PerformHash()
+void PasswordCracker::PerformHash()
 {
 	while(true) { // read-only in this context so no race condition
 		string text = plainTextPasswordGuessChannel.Read(); // block until new text is available, then read from it
@@ -66,7 +66,7 @@ void Cracker::PerformHash()
 	}
 }
 
-void Cracker::CompareHashToTarget()
+void PasswordCracker::CompareHashToTarget()
 {
 	while (true) {
 		PasswordHashPair guess = hashChannel.Read(); // block until completed hash avaiable
@@ -76,7 +76,7 @@ void Cracker::CompareHashToTarget()
 	}
 }
 
-string Cracker::WaitForEndOfSearch()
+string PasswordCracker::WaitForEndOfSearch()
 {
 	return passwordTextOutChannel.Read(); // block until password found (end of search)
 }

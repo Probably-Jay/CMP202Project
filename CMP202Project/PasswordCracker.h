@@ -19,7 +19,7 @@ using std::size_t;
 #define DEFAULTMAXBUFFERSIZE 1000
 #define DEFAULNUMBEROFGENERATORTHREADS 2
 
-class Cracker
+class PasswordCracker
 {
 public:
 	// forward declarations
@@ -31,8 +31,8 @@ public:
 	//enum PasswordComplexity :int; 
 	
 	// public member functions
-	Cracker(const int _numberOfGeneratorThreads = DEFAULNUMBEROFGENERATORTHREADS, const int _maxChannelBufferSize = DEFAULTMAXBUFFERSIZE);
-	~Cracker();
+	PasswordCracker(const int _numberOfGeneratorThreads = DEFAULNUMBEROFGENERATORTHREADS, const int _maxChannelBufferSize = DEFAULTMAXBUFFERSIZE);
+	~PasswordCracker();
 
 	void CrackPassword(std::size_t hash);
 

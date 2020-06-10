@@ -3,7 +3,7 @@
 TimingData::TimingData(string name, void(*f)(), int ittr, bool consoleOut)
 	:name(name), function(f), iterations(ittr), consoleOut(consoleOut)
 {
-	auto timeStart = system_clock::to_time_t(system_clock::now()); // current time to create unique file name (ensures no overwite)
+	auto timeStart = system_clock::to_time_t(system_clock::now()); // current time to create unique file name (ensures no accidental overwite)
 	filename = "Timings\\" + name + to_string(timeStart) + ".csv";
 
 	file.open(filename);
@@ -11,32 +11,27 @@ TimingData::TimingData(string name, void(*f)(), int ittr, bool consoleOut)
 
 TimingData::~TimingData()
 {
-	if (file.is_open())
-		file.close();
+	TryClose();
 }
 
-void TimingData::Close()
-{
-	if (file.is_open())
-		file.close();
-}
+
 
 void TimingData::RunTiming()
 {
-	if (consoleOut) { outputBegin(); }
-	tryOpen();
+	if (consoleOut) { OutputBegin(); }
+	TryOpen();
 	for (int i = 0; i < iterations; i++) {
 		beginTime = high_resolution_clock::now();
-		callFunc(function); // inline function call to do the timed function
+		CallFunc(function); // inline function call to do the timed function
 		endTime = high_resolution_clock::now();
 		elapsedTime = duration_cast<duration<double>>(endTime - beginTime);
 		timings.push_back(elapsedTime.count());
 		string output = to_string(elapsedTime.count()) + ',';
 		file << output;
-		if (consoleOut) { outputProgress(i,iterations); }
+		if (consoleOut) { OutputProgress(i,iterations); }
 	}
 	file << endl;
-	if (consoleOut) { ouputEnd(); }
+	if (consoleOut) { OuputEnd(); }
 }
 
 double TimingData::CalculateMedianTime()
@@ -48,19 +43,19 @@ double TimingData::CalculateMedianTime()
 
 	medianTiming = timingList[timingList.size() / (int)2]; // get the middle time
 
-	record(to_string(medianTiming)); // record the time
+	Record(to_string(medianTiming)); // record the time
 
 	return medianTiming;
 
 }
 
-void TimingData::record(string data)
+void TimingData::Record(string data)
 {
-	tryOpen();
+	TryOpen();
 	file << data << endl;
 }
 
-void TimingData::outputProgress(float progress, float total)
+void TimingData::OutputProgress(float progress, float total)
 {
 	float percent = 100.f * (progress / total);
 	string outputPercent = to_string(percent);
@@ -70,13 +65,13 @@ void TimingData::outputProgress(float progress, float total)
 
 }
 
-void TimingData::ouputEnd()
+void TimingData::OuputEnd()
 {
 	cout << "\b"; cout << "\b"; cout << "\b"; cout << "\b"; cout << "\b"; cout << "\b";  // XX.XX%
 	cout << "100.00%" << endl;	
 }
 
-void TimingData::outputBegin()
+void TimingData::OutputBegin()
 {
 	cout << "Timing for: " << name << endl;
 }

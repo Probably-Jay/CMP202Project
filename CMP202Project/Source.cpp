@@ -4,7 +4,7 @@
 #include <string>
 
 #include "Channel.h"
-#include "Channel.cpp"
+
 
 #include <mutex>
 

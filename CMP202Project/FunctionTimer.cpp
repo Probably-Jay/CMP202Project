@@ -15,7 +15,7 @@ TimingData * FunctionTimer::NewTiming(string name, void(*function)(),int iterati
 	timings[name] = new TimingData(name, function, iterations, consoleOut);
 	timings[name]->RunTiming();
 	timings[name]->CalculateMedianTime();
-	timings[name]->Close();
+	timings[name]->TryClose();
 	return timings[name];
 }
 
