@@ -9,7 +9,7 @@ PasswordCracker::PasswordCracker(const int _numberOfGeneratorThreads, const int 
 	, passwordTextOutChannel(1)
 	, MINCHAR(' ')
 	, currentPasswordRoot("")
-	, generationBarrier(_numberOfGeneratorThreads+1)
+	, generationBarrier(_numberOfGeneratorThreads)
 	
 {
 	for (int i = 0; i < _numberOfGeneratorThreads; i++) {
@@ -28,27 +28,19 @@ void PasswordCracker::CrackPassword(std::size_t _hash)
 {
 	targetHash = _hash;
 	thread mainGenerator(&PasswordCracker::GeneratePasswordGuesses,this); // starts a thread that manages multiple generator threads
+	thread test(&PasswordCracker::testOutput, this);
+	mainGenerator.join();
+	test.join();
 
-
-}
-
-void PasswordCracker::SegmentPossiblePasswordGuesses() // upated the information generator threads use
-{
-
-	int numberOfCharacters = 95; // "a-z" + "A-Z" + "0-9" + " !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~" - continuous chars from ' ' to '~'
-
-	int aproxWorkPerThread = ceil((float)numberOfCharacters / (float)numberOfGeneratorThreads);
-
-	for (int i = 0; i < numberOfGeneratorThreads; i++) {
-		generatorThreads[i]->SetSegments(currentPasswordRoot, (char)(MINCHAR + (i * aproxWorkPerThread)), (char)(MINCHAR + ((i + 1) * aproxWorkPerThread)));
-	}
-	
 }
 
 void PasswordCracker::GeneratePasswordGuesses() // manages generator threads 
 {
 
 	SegmentPossiblePasswordGuesses(); // initialise generator threads
+	for (auto& t : generatorThreads) {
+		t->Begin();
+	}
 	generationBarrier.ArriveAndWait(); // wait for this to finnish, then begin generation
 	while (true) {
 		generationBarrier.ArriveAndWait(); //  wait for generation to finnish
@@ -56,6 +48,21 @@ void PasswordCracker::GeneratePasswordGuesses() // manages generator threads
 		generationBarrier.ArriveAndWait(); // wait for update to finnish, then begin generation
 	}
 }
+
+void PasswordCracker::SegmentPossiblePasswordGuesses() // update the information generator threads use
+{
+
+	int numberOfCharacters = 95; // "a-z" + "A-Z" + "0-9" + " !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~" - continuous chars from ' ' to '~'
+
+	int aproxWorkPerThread = ceil((float)numberOfCharacters / (float)numberOfGeneratorThreads);
+
+	for (int i = 0; i < numberOfGeneratorThreads; i++) {
+		char max = (char)(MINCHAR + ((i + 1) * aproxWorkPerThread));
+		generatorThreads[i]->SetSegments(currentPasswordRoot, (char)(MINCHAR + (i * aproxWorkPerThread)), max );
+	}
+	
+}
+
 
 void PasswordCracker::PerformHash()
 {
@@ -81,6 +88,17 @@ string PasswordCracker::WaitForEndOfSearch()
 	return passwordTextOutChannel.Read(); // block until password found (end of search)
 }
 
+void PasswordCracker::testOutput()
+{
+	unique_lock<mutex> lk(outMtx);
+	lk.unlock();
+	while (true) { // read-only in this context so no race condition
+		string text = plainTextPasswordGuessChannel.Read(); // block until new text is available, then read from it
+		lk.lock();
+		std::cout << text << std::endl;
+		lk.unlock();
+	}
+}
 
 
 

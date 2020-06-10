@@ -3,7 +3,7 @@
 #include <thread>
 #include <string>
 
-#include "Channel.h"
+#include "PasswordCracker.h"
 
 
 #include <mutex>
@@ -52,11 +52,9 @@ mutex coutMutex;
 
 int main() {
 	
-	string a = "helo";
-	hash<string> hs = hash<string>{};
-	std::size_t ha = hs(a);
-	int b;
-	
+	PasswordCracker cracker;
+
+	cracker.CrackPassword(0);
 
 }
 

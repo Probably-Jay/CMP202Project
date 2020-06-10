@@ -17,7 +17,7 @@ using std::hash;
 using std::size_t;
 
 #define DEFAULTMAXBUFFERSIZE 1000
-#define DEFAULNUMBEROFGENERATORTHREADS 2
+#define DEFAULNUMBEROFGENERATORTHREADS 1
 
 class PasswordCracker
 {
@@ -44,7 +44,8 @@ private:
 	void CompareHashToTarget();
 	string WaitForEndOfSearch();
 
-	
+	void testOutput();
+	mutex outMtx;
 
 	// member variables
 	size_t targetHash;

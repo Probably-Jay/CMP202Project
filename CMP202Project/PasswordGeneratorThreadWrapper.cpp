@@ -7,7 +7,15 @@ PasswordGeneratorThreadWrapper::PasswordGeneratorThreadWrapper(Channel<std::stri
 	, segMin(NULL)
 	, segMax(NULL)
 	, currentChar(segMin-1)
+	, threadRunning(false)
+	, thisThread(NULL)
 {
+}
+
+PasswordGeneratorThreadWrapper::~PasswordGeneratorThreadWrapper()
+{
+	Finish();
+	
 }
 
 void PasswordGeneratorThreadWrapper::SetSegments(string _prev,char _segMin, char _segMax)
@@ -15,6 +23,20 @@ void PasswordGeneratorThreadWrapper::SetSegments(string _prev,char _segMin, char
 	segMin = _segMin;
 	segMax = _segMax <= MAXCHAR ? _segMax : MAXCHAR; // the last segment given will be smaller than the rest if the number of threads is not a divisor of the segment size
 	prevString = _prev;
+	currentChar = segMin;
+}
+
+void PasswordGeneratorThreadWrapper::Begin()
+{
+	threadRunning = true;
+	thisThread = new thread(&PasswordGeneratorThreadWrapper::GeneratePassword, this);
+}
+
+void PasswordGeneratorThreadWrapper::Finish() // will end thread after its current cycle ends
+{
+	threadRunning = false;
+	thisThread->join();
+	delete thisThread;
 }
 
 inline bool PasswordGeneratorThreadWrapper::addOne(char& c)
@@ -31,16 +53,18 @@ inline bool PasswordGeneratorThreadWrapper::addOne(char& c)
 
 void PasswordGeneratorThreadWrapper::GeneratePassword()
 {
-	while (true) {
+	while (threadRunning) {
 
 		barrier->ArriveAndWait(); // wait for segment to be updated, last wait called from main thread passes barrier
 		while (true)
 		{
 			if (addOne(currentChar)) { // not passed end of segment
-				passwordChannel->Write(prevString + currentChar);
+				//if(threadRunning) // prevents thread from possibly getting stuck at destruction
+					passwordChannel->Write(prevString + currentChar);
 			}
 			else {
-				barrier->ArriveAndWait(); // wait for the rest of the threads to finish
+				//if(threadRunning) // prevents thread from possibly getting stuck at destruction
+					barrier->ArriveAndWait(); // wait for the rest of the threads to finish
 				break; // break and wait again for seg to be updated
 			}
 
