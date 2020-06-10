@@ -17,7 +17,7 @@ using std::hash;
 using std::size_t;
 
 #define DEFAULTMAXBUFFERSIZE 1000
-#define DEFAULNUMBEROFGENERATORTHREADS 1
+#define DEFAULNUMBEROFGENERATORTHREADS 3
 
 class PasswordCracker
 {
@@ -40,6 +40,7 @@ public:
 private:
 	// private member funcitons
 	void SegmentPossiblePasswordGuesses();
+	void UpdatePasswordRoot();
 	void PerformHash();
 	void CompareHashToTarget();
 	string WaitForEndOfSearch();
@@ -68,7 +69,7 @@ private:
 	string currentPasswordRoot;
 
 	// allowed characters for password generation are the continuous block of characters from ' '(32) to '~'(126)
-	const char MINCHAR; // minimum character that can be used in password guess generation, ' '
+	//const char MINCHAR; // minimum character that can be used in password guess generation, ' '
 	//const char MAXCHAR; // maximim, '~'
 
 public:

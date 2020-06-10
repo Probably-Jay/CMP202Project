@@ -7,7 +7,7 @@ PasswordCracker::PasswordCracker(const int _numberOfGeneratorThreads, const int 
 	, hashChannel(maxChannelBufferSize)
 	, numberOfGeneratorThreads(_numberOfGeneratorThreads)
 	, passwordTextOutChannel(1)
-	, MINCHAR(' ')
+	//, MINCHAR(' ')
 	, currentPasswordRoot("")
 	, generationBarrier(_numberOfGeneratorThreads)
 	
@@ -44,6 +44,7 @@ void PasswordCracker::GeneratePasswordGuesses() // manages generator threads
 	generationBarrier.ArriveAndWait(); // wait for this to finnish, then begin generation
 	while (true) {
 		generationBarrier.ArriveAndWait(); //  wait for generation to finnish
+		UpdatePasswordRoot();
 		SegmentPossiblePasswordGuesses(); // update generator threads
 		generationBarrier.ArriveAndWait(); // wait for update to finnish, then begin generation
 	}
@@ -52,7 +53,7 @@ void PasswordCracker::GeneratePasswordGuesses() // manages generator threads
 void PasswordCracker::SegmentPossiblePasswordGuesses() // update the information generator threads use
 {
 
-	int numberOfCharacters = 95; // "a-z" + "A-Z" + "0-9" + " !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~" - continuous chars from ' ' to '~'
+	int numberOfCharacters = (MAXCHAR - MINCHAR)+1; // "a-z" + "A-Z" + "0-9" + " !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~" - continuous chars from ' ' to '~'
 
 	int aproxWorkPerThread = ceil((float)numberOfCharacters / (float)numberOfGeneratorThreads);
 
@@ -61,6 +62,41 @@ void PasswordCracker::SegmentPossiblePasswordGuesses() // update the information
 		generatorThreads[i]->SetSegments(currentPasswordRoot, (char)(MINCHAR + (i * aproxWorkPerThread)), max );
 	}
 	
+}
+
+void PasswordCracker::UpdatePasswordRoot()
+{
+
+
+	int len = currentPasswordRoot.length();
+	// case ""
+	if (len == 0) {
+		currentPasswordRoot = MINCHAR;
+		return;
+	}
+	int end = len - 1;
+	
+
+	for (int i = end; i >= 0; i--) { // for each letter in root, starting at far right
+		if (currentPasswordRoot[i] < MAXCHAR) {  // if letter is less than max
+			currentPasswordRoot = currentPasswordRoot.substr(0, i) + (char)(currentPasswordRoot[i] + 1) + currentPasswordRoot.substr(i + 1, end - i);
+
+			return;
+		}
+		else {
+			currentPasswordRoot[i] = MINCHAR; // set that letter to the start
+
+		}
+	} // we have reached the begining of the root and not yet returned
+	currentPasswordRoot = MINCHAR + currentPasswordRoot;
+
+	
+
+	
+
+	// case Z-Z -> AA-A 
+
+
 }
 
 

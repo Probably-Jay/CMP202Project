@@ -23,7 +23,7 @@ void PasswordGeneratorThreadWrapper::SetSegments(string _prev,char _segMin, char
 	segMin = _segMin;
 	segMax = _segMax <= MAXCHAR ? _segMax : MAXCHAR; // the last segment given will be smaller than the rest if the number of threads is not a divisor of the segment size
 	prevString = _prev;
-	currentChar = segMin;
+	currentChar = segMin -1;
 }
 
 void PasswordGeneratorThreadWrapper::Begin()
@@ -60,7 +60,7 @@ void PasswordGeneratorThreadWrapper::GeneratePassword()
 		{
 			if (addOne(currentChar)) { // not passed end of segment
 				//if(threadRunning) // prevents thread from possibly getting stuck at destruction
-					passwordChannel->Write(prevString + currentChar);
+				passwordChannel->Write(prevString + currentChar);
 			}
 			else {
 				//if(threadRunning) // prevents thread from possibly getting stuck at destruction

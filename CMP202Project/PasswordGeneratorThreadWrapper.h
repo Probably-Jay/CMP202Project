@@ -3,7 +3,8 @@
 #include "Channel.h"
 #include "Barrier.h"
 #include "thread"
-constexpr auto MAXCHAR = '~';
+constexpr auto MINCHAR = 'a';//' ';
+constexpr auto MAXCHAR = 'z';//'~';
 using std::string;
 using std::thread;
 
@@ -17,9 +18,9 @@ public:
 	void Begin();
 	void Finish();
 
+	PasswordGeneratorThreadWrapper(const PasswordGeneratorThreadWrapper&) = delete; // cannot be construction-copied
+	PasswordGeneratorThreadWrapper& operator=(const PasswordGeneratorThreadWrapper&) = delete; // cannot be copied
 private:
-	//PasswordGeneratorThreadWrapper(const PasswordGeneratorThreadWrapper&) = delete; // cannot be construction-copied
-	//PasswordGeneratorThreadWrapper& operator=(const PasswordGeneratorThreadWrapper&) = delete; // cannot be copied
 
 	inline bool addOne(char& c);
 	void GeneratePassword();
