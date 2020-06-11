@@ -35,8 +35,13 @@ void PasswordGeneratorThreadWrapper::Begin()
 void PasswordGeneratorThreadWrapper::Finish() // will end thread after its current cycle ends
 {
 	threadRunning = false;
-	thisThread->join();
-	delete thisThread;
+	barrier->UnblockAll(); // in case threads are stuck at barrier
+	if (thisThread) {
+		if (thisThread->joinable())
+			thisThread->join();
+		delete thisThread;
+		thisThread = nullptr;
+	}
 }
 
 inline bool PasswordGeneratorThreadWrapper::addOne(char& c)
@@ -61,6 +66,7 @@ void PasswordGeneratorThreadWrapper::GeneratePassword()
 			if (addOne(currentChar)) { // not passed end of segment
 				//if(threadRunning) // prevents thread from possibly getting stuck at destruction
 				passwordChannel->Write(prevString + currentChar);
+				//std::this_thread::sleep_for(std::chrono::milliseconds(100));
 			}
 			else {
 				//if(threadRunning) // prevents thread from possibly getting stuck at destruction

@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <chrono>
 #include "Channel.h"
 #include "Barrier.h"
 #include "thread"

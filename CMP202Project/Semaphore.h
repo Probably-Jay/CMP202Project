@@ -4,6 +4,7 @@
 #include <mutex>
 #include <thread>
 #include <iostream>
+#include <limits>
 
 using std::unique_lock;
 
@@ -14,8 +15,10 @@ class Semaphore
 {
 public:
 	Semaphore(int _initial = 0);
+	~Semaphore();
 	void Signal(); // increment pool count, wake up a sleeping thread on wait
 	void Wait(); // suspend thread until pool count is greater than 0, decrement pool count
+	void UnblockAll(); // called at destruction to unblock any possible threads still waiting on signal
 private:
 	mutex poolMutex;
 	condition_variable cv;

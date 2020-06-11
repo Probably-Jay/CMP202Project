@@ -1,3 +1,4 @@
+#include "Channel.h"
 #pragma once
 
 
@@ -12,11 +13,17 @@ Channel<T>::Channel(int _max)
 
 
 template<class T>
+Channel<T>::~Channel()
+{
+	UnblockAll();
+}
+
+template<class T>
 void Channel<T>::Write(T data)
 {
 	emptySem.Wait(); // block and suspend unless there is room to write into the buffer
 	lock_guard<mutex> lock(mtx);
-	buffer.push_back(data);
+	buffer.push_front(data);
 	sem.Signal(); 
 
 }
@@ -31,4 +38,11 @@ T Channel<T>::Read()
 	buffer.pop_back();
 	emptySem.Signal();
 	return item;
+}
+
+template<class T>
+void Channel<T>::UnblockAll()
+{
+	sem.UnblockAll();
+	emptySem.UnblockAll();
 }

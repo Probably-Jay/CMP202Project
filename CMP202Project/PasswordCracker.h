@@ -7,6 +7,7 @@
 #include <mutex>
 #include <thread>
 #include <functional>
+#include <vector>
 
 using std::string;
 using std::lock;
@@ -15,9 +16,12 @@ using std::thread;
 using std::mutex;
 using std::hash;
 using std::size_t;
+using std::vector;
 
 #define DEFAULTMAXBUFFERSIZE 1000
-#define DEFAULNUMBEROFGENERATORTHREADS 3
+#define DEFAULNUMBEROFGENERATORTHREADS 1
+#define DEFAULNUMBEROFHASHTHREADS 1
+#define DEFAULNUMBEROFCOMPARISONTHREADS 1
 
 class PasswordCracker
 {
@@ -31,21 +35,53 @@ public:
 	//enum PasswordComplexity :int; 
 	
 	// public member functions
-	PasswordCracker(const int _numberOfGeneratorThreads = DEFAULNUMBEROFGENERATORTHREADS, const int _maxChannelBufferSize = DEFAULTMAXBUFFERSIZE);
+	PasswordCracker(const int _numberOfGeneratorThreads = DEFAULNUMBEROFGENERATORTHREADS,
+		const int _numberOfHashingThreads = DEFAULNUMBEROFHASHTHREADS, 
+		const int _numberOfComparisonThreads =  DEFAULNUMBEROFCOMPARISONTHREADS,
+		const int _maxChannelBufferSize = DEFAULTMAXBUFFERSIZE);
 	~PasswordCracker();
 
 	void CrackPassword(std::size_t hash);
 
-	void GeneratePasswordGuesses();
 private:
+	bool active;
+
 	// private member funcitons
+
+	// password generation
+	void GeneratePasswordGuesses(int _numberOfGeneratorThreads);
 	void SegmentPossiblePasswordGuesses();
 	void UpdatePasswordRoot();
-	void PerformHash();
-	void CompareHashToTarget();
-	string WaitForEndOfSearch();
 
+	// hashing
+	void PerformHash();
+
+	// hash comparision
+	void CompareHashToTarget();
+	
+	// search managment
+	string WaitForEndOfSearch();
+	void EndSearch();
+
+	// debug
 	void testOutput();
+
+
+	// internal thread helper functions
+	inline void BeginThreads(thread* &threadPtr, void(PasswordCracker::* func)(int), const int _numberOfThreads) {threadPtr = new thread(func, this, _numberOfThreads); };
+
+	inline void BeginThreads(vector<thread*>& threads, void(PasswordCracker::* func)(void), int _numberOfThreads);
+
+	inline void JoinThreads(thread*& _thread);
+
+	inline void JoinThreads(vector<thread*>& _threads);
+
+	// thread pointers
+	thread * mainGeneratorThread;
+	vector<thread*> hashThreads;
+	vector<thread*>  comparisonThreads;
+
+
 	mutex outMtx;
 
 	// member variables
@@ -55,6 +91,8 @@ private:
 	mutex searchingMutex;*/
 
 	const int numberOfGeneratorThreads;
+	const int numberOfHashingThreads;
+	const int numberOfComparisonThreads;
 
 	//const PasswordComplexity passwordComplexity;
 

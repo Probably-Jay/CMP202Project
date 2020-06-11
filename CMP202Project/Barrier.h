@@ -7,6 +7,7 @@ class Barrier
 public:
 	explicit Barrier(const int _numberOfThreads);
 	void ArriveAndWait();
+	void UnblockAll();
 
 private:
 
