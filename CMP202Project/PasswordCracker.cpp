@@ -36,8 +36,8 @@ string PasswordCracker::CrackPassword(std::size_t _hash)
 	active = true;
 
 
-	generationMainTimingFull = functionTimer.CreateManualTiming("Generation_Full_");
-	generationTimingMainWorkOnly = functionTimer.CreateManualTiming("Generation_Work_");
+	generationMainTimingFull = functionTimer.CreateManualTiming("GenerationMain_Full_");
+	generationTimingMainWorkOnly = functionTimer.CreateManualTiming("GenerationMain_Work_");
 
 	hashingTimingFull = functionTimer.CreateManualTiming("Hashing_Full_");
 	hashingTimingWorkOnly = functionTimer.CreateManualTiming("Hashing_Work_");

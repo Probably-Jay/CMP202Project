@@ -11,7 +11,10 @@ PasswordGeneratorThreadWrapper::PasswordGeneratorThreadWrapper(Channel<std::stri
 	, currentChar(segMin-1)
 	, threadRunning(false)
 	, thisThread(NULL)
+	, ft(_ft)
 {
+	myTimingFull = ft->CreateManualTiming("GenerationInside_Full_");
+	myTimingWork = ft->CreateManualTiming("GenerationMain_Work_"); // move outside
 }
 
 PasswordGeneratorThreadWrapper::~PasswordGeneratorThreadWrapper()
