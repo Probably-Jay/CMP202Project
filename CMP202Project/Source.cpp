@@ -29,7 +29,6 @@ Channel<int> chan(3);
 mutex coutMutex;
 
 
-
 string currentPasswordRoot = "";
 
 void UpdatePasswordRoot()
@@ -66,9 +65,19 @@ void UpdatePasswordRoot()
 
 
 int main() {
-	
-	PasswordCracker cracker;
+	for (size_t i = 0; i < 1; i++)
+	 {
+		PasswordCracker cracker;
 
-	cracker.CrackPassword(0);
-	
+		string password = "pass";
+
+		size_t hashedPassword = hash<string>{}(password);
+
+		//cout << "looking for: \"" << password << "\", hash: " << hashedPassword << endl;
+		string foundPassword = cracker.CrackPassword(hashedPassword);
+
+		//cout << "found : " << foundPassword << endl;
+	}
+
+
 }

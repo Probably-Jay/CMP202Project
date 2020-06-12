@@ -8,8 +8,11 @@ public:
 	explicit Barrier(const int _numberOfThreads);
 	void ArriveAndWait();
 	void UnblockAll();
+	void UnblockAllandDisable();
 
 private:
+
+	bool enabled;
 
 	std::mutex mtx;
 	std::condition_variable cv;

@@ -8,6 +8,8 @@
 #include <algorithm>
 #include <iostream>
 
+#include <mutex>
+
 using std::string;
 using std::ofstream;
 using std::to_string;
@@ -16,20 +18,34 @@ using std::map;
 using std::sort;
 using std::cout;
 using std::endl;
+using std::mutex;
+using std::unique_lock;
+using std::lock_guard;
 
 using namespace std::chrono;
 
 // class for handing timing on one function and storing that timing in a file
 class TimingData
 {
+	friend class FunctionTimer;
 public:
-	TimingData(string name, void (*f)(), int ittr, bool consoleOut);
+	TimingData(string name);
 
 	~TimingData();
 
 
-	void RunTiming();
+	void ManualTimingStart();
+	void ManualTimingStop();
 
+	void EndTiming();
+
+	string GetName() { return name; };
+	
+private:
+
+	TimingData(string name, void (*f)(void), int ittr, bool consoleOut);
+	string name;
+	void RunFunctionTiming();
 	double CalculateMedianTime();
 	
 	void Record(string data);
@@ -46,11 +62,12 @@ public:
 
 	inline void CallFunc(void(*f)()){(*f)();}; // calls function pointer
 
-	string name;
+	
+
 	vector<double> timings;
 	float medianTiming;
 
-private:
+
 	time_point<steady_clock> beginTime;
 	time_point<steady_clock> endTime;
 	duration<double> elapsedTime;
@@ -60,6 +77,9 @@ private:
 	int iterations;
 	bool consoleOut;
 
+	mutex timeMutex;
+	mutex fileWriteMutex;
+	unique_lock<mutex> timeLock;
 	
 
 };

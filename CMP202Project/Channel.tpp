@@ -4,9 +4,10 @@
 
 template<class T>
 Channel<T>::Channel(int _max)
-	:	maxSize((_max > 0 && _max <= INT_MAX - 1) ? _max : INT_MAX- 1) // bounds just to be safe
-	,	sem(0)
-	,	emptySem(maxSize)
+	: maxSize((_max > 0 && _max <= INT_MAX - 1) ? _max : INT_MAX- 1) // bounds just to be safe
+	, sem(0)
+	, emptySem(maxSize)
+	, enabled(true)
 
 {
 }
@@ -15,15 +16,17 @@ Channel<T>::Channel(int _max)
 template<class T>
 Channel<T>::~Channel()
 {
-	UnblockAll();
+	UnblockAllandDisable();
 }
 
 template<class T>
 void Channel<T>::Write(T data)
 {
 	emptySem.Wait(); // block and suspend unless there is room to write into the buffer
-	lock_guard<mutex> lock(mtx);
-	buffer.push_front(data);
+	{ // RAII scope
+		lock_guard<mutex> lock(mtx);
+		buffer.push_front(data); 
+	}
 	sem.Signal(); 
 
 }
@@ -33,6 +36,7 @@ template<class T>
 T Channel<T>::Read()
 {
 	sem.Wait(); // block and suspend unless there are available elements in the buffer
+	if (!enabled) return T(); // if channel has been decommissioned, prevent reading empty buffer
 	lock_guard<mutex> lock(mtx);
 	T item = buffer.back();
 	buffer.pop_back();
@@ -41,8 +45,11 @@ T Channel<T>::Read()
 }
 
 template<class T>
-void Channel<T>::UnblockAll()
+void Channel<T>::UnblockAllandDisable()
 {
-	sem.UnblockAll();
-	emptySem.UnblockAll();
+	if (enabled) {
+		enabled = false;
+		sem.Disable();
+		emptySem.Disable();
+	}
 }

@@ -1,7 +1,18 @@
 #include "TimingData.h"
 
+TimingData::TimingData(string name)
+	:name(name), function(nullptr), iterations(0), consoleOut(false), timeLock(timeMutex,std::defer_lock)
+{
+	auto timeStart = system_clock::to_time_t(system_clock::now()); // current time to create unique file name (ensures no accidental overwite)
+	filename = "Timings\\" + name + to_string(timeStart) + ".csv";
+
+	file.open(filename);
+
+	
+}
+
 TimingData::TimingData(string name, void(*f)(), int ittr, bool consoleOut)
-	:name(name), function(f), iterations(ittr), consoleOut(consoleOut)
+	:name(name), function(f), iterations(ittr), consoleOut(consoleOut), timeLock(timeMutex, std::defer_lock)
 {
 	auto timeStart = system_clock::to_time_t(system_clock::now()); // current time to create unique file name (ensures no accidental overwite)
 	filename = "Timings\\" + name + to_string(timeStart) + ".csv";
@@ -14,9 +25,32 @@ TimingData::~TimingData()
 	TryClose();
 }
 
+void TimingData::ManualTimingStart()
+{
+	timeLock.lock();
+	beginTime = high_resolution_clock::now();
+}
+
+void TimingData::ManualTimingStop()
+{
+	endTime = high_resolution_clock::now();
+	elapsedTime = duration_cast<duration<double>>(endTime - beginTime);
+	timings.push_back(elapsedTime.count());
+	string result = to_string(elapsedTime.count()) + ',';
+	timeLock.unlock();
+	lock_guard<mutex> lk(fileWriteMutex); // raii, this next step might take a long time so seperate mutex lock
+	file << result;
+}
+
+void TimingData::EndTiming()
+{
+	CalculateMedianTime();
+	TryClose();
+}
 
 
-void TimingData::RunTiming()
+
+void TimingData::RunFunctionTiming()
 {
 	if (consoleOut) { OutputBegin(); }
 	TryOpen();
@@ -26,8 +60,8 @@ void TimingData::RunTiming()
 		endTime = high_resolution_clock::now();
 		elapsedTime = duration_cast<duration<double>>(endTime - beginTime);
 		timings.push_back(elapsedTime.count());
-		string output = to_string(elapsedTime.count()) + ',';
-		file << output;
+		string result = to_string(elapsedTime.count()) + ',';
+		file << result;
 		if (consoleOut) { OutputProgress(i,iterations); }
 	}
 	file << endl;

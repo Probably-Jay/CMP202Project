@@ -1,7 +1,27 @@
-﻿  PasswordCracker.cpp
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(77,25): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(90,40): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+﻿  Barrier.cpp
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\Barrier.cpp(35,52): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  PasswordCracker.cpp
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(88,25): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(101,40): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  FunctionTimer.cpp
+  PasswordGeneratorThreadWrapper.cpp
+  Semaphore.cpp
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\Semaphore.cpp(37,46): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   Source.cpp
 C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\Source.cpp(39,40): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  TimingData.cpp
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingData.cpp(31,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingData.cpp(31,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingData.cpp(44,54): warning C4244: '=': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+  Compiling...
   Generating Code...
   CMP202Project.vcxproj -> C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\x64\Debug\CMP202Project.exe
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(109): warning C26451: Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2).
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(109): warning C26451: Arithmetic overflow: Using operator '-' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '-' to avoid overflow (io.2).
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.h(34): warning C26495: Variable 'PasswordCracker::PasswordHashPair::hash' is uninitialized. Always initialize a member variable (type.6).
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\Source.cpp(50): warning C26451: Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2).
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\Source.cpp(50): warning C26451: Arithmetic overflow: Using operator '-' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '-' to avoid overflow (io.2).

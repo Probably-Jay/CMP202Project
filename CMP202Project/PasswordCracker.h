@@ -3,6 +3,8 @@
 #include "Barrier.h"
 #include "PasswordGeneratorThreadWrapper.h"
 
+#include "FunctionTimer.h"
+
 #include <string>
 #include <mutex>
 #include <thread>
@@ -18,10 +20,13 @@ using std::hash;
 using std::size_t;
 using std::vector;
 
-#define DEFAULTMAXBUFFERSIZE 1000
-#define DEFAULNUMBEROFGENERATORTHREADS 1
-#define DEFAULNUMBEROFHASHTHREADS 1
-#define DEFAULNUMBEROFCOMPARISONTHREADS 1
+constexpr auto MINCHAR = ' ';
+constexpr auto MAXCHAR = '~';
+
+constexpr auto DEFAULTMAXBUFFERSIZE = 1000;
+constexpr auto DEFAULNUMBEROFGENERATORTHREADS = 1;
+constexpr auto DEFAULNUMBEROFHASHTHREADS = 1;
+constexpr auto DEFAULNUMBEROFCOMPARISONTHREADS = 1;
 
 class PasswordCracker
 {
@@ -41,7 +46,21 @@ public:
 		const int _maxChannelBufferSize = DEFAULTMAXBUFFERSIZE);
 	~PasswordCracker();
 
-	void CrackPassword(std::size_t hash);
+	string CrackPassword(std::size_t hash);
+	//void Timings();
+
+	FunctionTimer functionTimer;
+
+
+	TimingData * generationMainTimingFull;
+	TimingData * generationTimingMainWorkOnly;
+
+
+	TimingData* hashingTimingFull;
+	TimingData* hashingTimingWorkOnly;
+
+	TimingData* comparisonTimingFull;
+	TimingData* comparisonTimingWorkOnly;
 
 private:
 	bool active;
@@ -60,32 +79,32 @@ private:
 	void CompareHashToTarget();
 	
 	// search managment
-	string WaitForEndOfSearch();
+	void WaitForEndOfSearch();
 	void EndSearch();
 
 	// debug
-	void testOutput();
+	//void testOutput();
 
 
 	// internal thread helper functions
-	inline void BeginThreads(thread* &threadPtr, void(PasswordCracker::* func)(int), const int _numberOfThreads) {threadPtr = new thread(func, this, _numberOfThreads); };
+	void BeginThreads(thread* &threadPtr, void(PasswordCracker::* func)(void)) {threadPtr = new thread(func, this); };
+	void BeginThreads(thread* &threadPtr, void(PasswordCracker::* func)(int), const int _numberOfThreads) {threadPtr = new thread(func, this, _numberOfThreads); };
+	void BeginThreads(vector<thread*>& threads, void(PasswordCracker::* func)(void), int _numberOfThreads);
 
-	inline void BeginThreads(vector<thread*>& threads, void(PasswordCracker::* func)(void), int _numberOfThreads);
-
-	inline void JoinThreads(thread*& _thread);
-
-	inline void JoinThreads(vector<thread*>& _threads);
+	void JoinThreads(thread*& _thread);
+	void JoinThreads(vector<thread*>& _threads);
 
 	// thread pointers
-	thread * mainGeneratorThread;
+	thread *		mainGeneratorThread;
 	vector<thread*> hashThreads;
-	vector<thread*>  comparisonThreads;
-
+	vector<thread*> comparisonThreads;
+	thread*			waitForEndThread;
 
 	mutex outMtx;
 
 	// member variables
 	size_t targetHash;
+	string foundPassword;
 
 	/*bool searching = false;
 	mutex searchingMutex;*/
@@ -106,43 +125,9 @@ private:
 
 	string currentPasswordRoot;
 
-	// allowed characters for password generation are the continuous block of characters from ' '(32) to '~'(126)
-	//const char MINCHAR; // minimum character that can be used in password guess generation, ' '
-	//const char MAXCHAR; // maximim, '~'
-
-public:
-	// contained structure and enum definitions
-
-
-	//enum PasswordComplexityFlags {
-	//	lowercase = 1 << 0,
-	//	uppercase = 1 << 1,
-	//	numbers = 1 << 2,
-	//	symbols = 1 << 3,
-	//};
-	//
-	//enum PasswordComplexity :int
-	//{
-	//	lowercase = PasswordComplexityFlags::lowercase,
-	//	uppercaseLowercase = (PasswordComplexityFlags::lowercase | PasswordComplexityFlags::uppercase),
-	//	uppercaseLowercaseNumerical = (PasswordComplexityFlags::lowercase | PasswordComplexityFlags::uppercase| PasswordComplexityFlags::numbers),
-	//	all = (PasswordComplexityFlags::lowercase | PasswordComplexityFlags::uppercase| PasswordComplexityFlags::numbers| PasswordComplexityFlags::symbols),
-	//};
+	
 
 	 
-
-	/*
-	
-		create password
-		add that to chan
-		hash password
-		add that to chan
-		compare hashes
-	
-	
-	
-	
-	*/ 
 
 
 };

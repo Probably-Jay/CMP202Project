@@ -15,10 +15,13 @@ public:
 	void Write(T data); // add a value to the channel (if there is room) signal that a value has been added to wake up sleeping threads
 	T Read(); // try read a value from the channel, suspend execution until not empty
 
-	void UnblockAll(); // called at destruction to unblock any possible threads still attempting to read / write
+	void UnblockAllandDisable(); // called at destruction to unblock any possible threads still attempting to read / write
 
 
 private:
+
+	bool enabled;
+	
 	const int maxSize;
 	Semaphore sem;
 	Semaphore emptySem; // semaphore keeping track of the empty places in the chanel

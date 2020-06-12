@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?><DEFECTS><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\</FILEPATH>
+      <FILENAME>PasswordCracker.cpp</FILENAME>
+      <LINE>109</LINE>
+      <COLUMN>126</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>PasswordCracker::UpdatePasswordRoot</FUNCTION>
+    <DECORATED>?UpdatePasswordRoot@PasswordCracker@@AEAAXXZ</DECORATED>
+    <FUNCLINE>97</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\</FILEPATH>
+      <FILENAME>PasswordCracker.cpp</FILENAME>
+      <LINE>109</LINE>
+      <COLUMN>140</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '-' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '-' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>PasswordCracker::UpdatePasswordRoot</FUNCTION>
+    <DECORATED>?UpdatePasswordRoot@PasswordCracker@@AEAAXXZ</DECORATED>
+    <FUNCLINE>97</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\</FILEPATH>
+      <FILENAME>PasswordCracker.h</FILENAME>
+      <LINE>34</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'PasswordCracker::PasswordHashPair::hash' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>PasswordCracker::PasswordHashPair::{ctor}</FUNCTION>
+    <DECORATED>??0PasswordHashPair@PasswordCracker@@QEAA@XZ</DECORATED>
+    <FUNCLINE>34</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>PasswordCracker::PasswordHashPair::hash</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\</FILEPATH>
+      <FILENAME>Source.cpp</FILENAME>
+      <LINE>50</LINE>
+      <COLUMN>126</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>UpdatePasswordRoot</FUNCTION>
+    <DECORATED>?UpdatePasswordRoot@@YAXXZ</DECORATED>
+    <FUNCLINE>35</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\</FILEPATH>
+      <FILENAME>Source.cpp</FILENAME>
+      <LINE>50</LINE>
+      <COLUMN>135</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '-' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '-' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>UpdatePasswordRoot</FUNCTION>
+    <DECORATED>?UpdatePasswordRoot@@YAXXZ</DECORATED>
+    <FUNCLINE>35</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT></DEFECTS>

@@ -1,0 +1,16 @@
+﻿  FunctionTimer.cpp
+  PasswordCracker.cpp
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(77,116): error C2661: 'PasswordGeneratorThreadWrapper::PasswordGeneratorThreadWrapper': no overloaded function takes 2 arguments
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(109,25): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(122,40): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  PasswordGeneratorThreadWrapper.cpp
+  Source.cpp
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\Source.cpp(38,40): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  TimingData.cpp
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingData.cpp(65,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingData.cpp(65,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingData.cpp(78,54): warning C4244: '=': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=double
+          ]

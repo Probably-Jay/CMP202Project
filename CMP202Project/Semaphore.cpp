@@ -8,7 +8,7 @@ Semaphore::Semaphore(int _initial)
 
 Semaphore::~Semaphore()
 {
-	UnblockAll(); // save any blocking thread from possibly getting stuck
+	Disable(); // save any blocking thread from possibly getting stuck
 }
 
 // increment pool count, wake up a sleeping thread on wait
@@ -32,8 +32,8 @@ void Semaphore::Wait()
 	return;
 }
 
-void Semaphore::UnblockAll()
+void Semaphore::Disable()
 {
-	poolCount = std::numeric_limits<int>::max()-1; // a really big number
+	poolCount = std::numeric_limits<int>::max() *0.7f; // a really big number
 	cv.notify_all();
 }

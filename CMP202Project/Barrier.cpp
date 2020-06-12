@@ -4,6 +4,7 @@ Barrier::Barrier(const int _numberOfThreads)
 	: limit(_numberOfThreads)
 	, count(0)
 	, barrierUseCount(0)
+	, enabled(true)
 {
 }
 
@@ -11,7 +12,7 @@ void Barrier::ArriveAndWait() // suspends threads untill all have reached this p
 {
 	std::unique_lock<std::mutex> lock(mtx); // RAII mutex lock
 	int useNumber = barrierUseCount; //  keep track of the current use of barrier (used to prevent spurious wakeup while being reusable)
-	if (count >= limit) { // if the count of waiting threads reaches the barrier limit, open
+	if (count >= limit || !enabled) { // if the count of waiting threads reaches the barrier limit, open
 		UnblockAll();
 	}
 	else { // else increment count and set thread waiting
@@ -24,5 +25,13 @@ void Barrier::UnblockAll()
 {
 	barrierUseCount++; // next use of barrier
 	count = 0; // reset count
+	cv.notify_all();
+}
+
+void Barrier::UnblockAllandDisable()
+{
+	enabled = false;
+
+	barrierUseCount = std::numeric_limits<int>::max() *0.7f; // a really big number
 	cv.notify_all();
 }
