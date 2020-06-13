@@ -13,8 +13,8 @@ PasswordGeneratorThreadWrapper::PasswordGeneratorThreadWrapper(Channel<std::stri
 	, thisThread(NULL)
 	, ft(_ft)
 {
-	myTimingFull = ft->CreateManualTiming("GenerationInside_Full_");
-	myTimingWork = ft->CreateManualTiming("GenerationMain_Work_"); // move outside
+	timingFull = ft->GetTiming("GenerationInside_Full_");
+	//myTimingWork = ft->GetTiming("GenerationInside_Work_"); // move outside
 }
 
 PasswordGeneratorThreadWrapper::~PasswordGeneratorThreadWrapper()
@@ -67,16 +67,19 @@ void PasswordGeneratorThreadWrapper::GeneratePassword()
 		barrier->ArriveAndWait(); // wait for segment to be updated, last wait called from main thread passes barrier
 		while (threadRunning)
 		{
+			timingFull->ManualTimingStart();
 			bool stillWithinSegment = addOne(currentChar);
 
 			if (stillWithinSegment) { // not passed end of segment
-				//if(threadRunning) // prevents thread from possibly getting stuck at destruction
 				passwordChannel->Write(prevString + currentChar);
-				//std::this_thread::sleep_for(std::chrono::milliseconds(100));
+				timingFull->ManualTimingStop();
+
 			}
 			else {
 				//if(threadRunning) // prevents thread from possibly getting stuck at destruction
 					barrier->ArriveAndWait(); // wait for the rest of the threads to finish
+					timingFull->ManualTimingStop();
+
 				break; // break and wait again for seg to be updated
 			}
 

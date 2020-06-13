@@ -35,7 +35,7 @@ public:
 
 
 	void ManualTimingStart();
-	void ManualTimingStop();
+	void ManualTimingStop(bool fast = true);
 
 	void EndTiming();
 

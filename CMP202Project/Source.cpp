@@ -31,42 +31,45 @@ mutex coutMutex;
 
 string currentPasswordRoot = "";
 
-void UpdatePasswordRoot()
-{
-
-
-	int len = currentPasswordRoot.length();
-
-	if (len == 0) {
-		currentPasswordRoot = MINCHAR;
-		return;
-	}
-	int end = len - 1;
-
-	for (int i = end; i >= 0; i--) { // for each letter in root, starting at far right
-		if (currentPasswordRoot[i] < MAXCHAR) {  // if letter is less than max
-
-			currentPasswordRoot = currentPasswordRoot.substr(0, i) + (char)(currentPasswordRoot[i] + 1) + currentPasswordRoot.substr(i + 1, end - i);
-
-			return;
-		}
-		else {
-			currentPasswordRoot[i] = MINCHAR; // set that letter to the start
-
-		}
-	} // we have reached the begining of the root and not yet returned
-	currentPasswordRoot = MINCHAR + currentPasswordRoot;
-
-
-
-
-}
+//void UpdatePasswordRoot()
+//{
+//
+//
+//	int len = currentPasswordRoot.length();
+//
+//	if (len == 0) {
+//		currentPasswordRoot = MINCHAR;
+//		return;
+//	}
+//	int end = len - 1;
+//
+//	for (int i = end; i >= 0; i--) { // for each letter in root, starting at far right
+//		if (currentPasswordRoot[i] < MAXCHAR) {  // if letter is less than max
+//
+//			currentPasswordRoot = currentPasswordRoot.substr(0, i) + (char)(currentPasswordRoot[i] + 1) + currentPasswordRoot.substr(i + 1, end - i);
+//
+//			return;
+//		}
+//		else {
+//			currentPasswordRoot[i] = MINCHAR; // set that letter to the start
+//
+//		}
+//	} // we have reached the begining of the root and not yet returned
+//	currentPasswordRoot = MINCHAR + currentPasswordRoot;
+//
+//
+//
+//
+//}
 
 
 
 int main() {
 	for (size_t i = 0; i < 1; i++)
 	 {
+		auto beginTime = high_resolution_clock::now();
+
+
 		PasswordCracker cracker;
 
 		string password = "pass";
@@ -76,7 +79,12 @@ int main() {
 		//cout << "looking for: \"" << password << "\", hash: " << hashedPassword << endl;
 		string foundPassword = cracker.CrackPassword(hashedPassword);
 
-		//cout << "found : " << foundPassword << endl;
+		auto endTime = high_resolution_clock::now();
+		auto elapsedTime = duration_cast<duration<double>>(endTime - beginTime);
+		auto time = (elapsedTime.count());
+		
+
+		cout << time << endl;
 	}
 
 

@@ -52,15 +52,15 @@ public:
 	FunctionTimer functionTimer;
 
 
-	TimingData * generationMainTimingFull;
-	TimingData * generationTimingMainWorkOnly;
-
-
-	TimingData* hashingTimingFull;
-	TimingData* hashingTimingWorkOnly;
-
-	TimingData* comparisonTimingFull;
-	TimingData* comparisonTimingWorkOnly;
+	//TimingData * generationMainTimingFull;
+	//TimingData * generationTimingMainWorkOnly;
+	//
+	//
+	//TimingData* hashingTimingFull;
+	//TimingData* hashingTimingWorkOnly;
+	//
+	//TimingData* comparisonTimingFull;
+	//TimingData* comparisonTimingWorkOnly;
 
 private:
 	bool active;

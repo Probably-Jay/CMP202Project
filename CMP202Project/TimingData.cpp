@@ -31,15 +31,17 @@ void TimingData::ManualTimingStart()
 	beginTime = high_resolution_clock::now();
 }
 
-void TimingData::ManualTimingStop()
+void TimingData::ManualTimingStop(bool fast)
 {
 	endTime = high_resolution_clock::now();
 	elapsedTime = duration_cast<duration<double>>(endTime - beginTime);
 	timings.push_back(elapsedTime.count());
 	string result = to_string(elapsedTime.count()) + ',';
 	timeLock.unlock();
-	lock_guard<mutex> lk(fileWriteMutex); // raii, this next step might take a long time so seperate mutex lock
-	file << result;
+	if (!fast) {
+		lock_guard<mutex> lk(fileWriteMutex); // raii, this next step might take a long time so seperate mutex lock
+		file << result;
+	}
 }
 
 void TimingData::EndTiming()

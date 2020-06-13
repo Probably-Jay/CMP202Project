@@ -23,18 +23,19 @@ public:
 
 	TimingData* CreateManualTiming(string name);
 	TimingData* RunNewTiming(string name, void (*function)(), int iterations = 1, bool consoleOut = false); // creates new timing data object
+	TimingData* GetTiming(string name);
 	
 	void ManualTimingBegin(string name) { timings[name]->ManualTimingStart(); };
-	void ManualTimingStop(string name) { timings[name]->ManualTimingStop(); };
+	void ManualTimingStop(string name, bool fast = true) { timings[name]->ManualTimingStop(fast); };
 	void ManualTimingEnd(string name) { timings[name]->EndTiming(); };
 
 																											 
 	//double CalculateMedianTime(string name);
-	map<string,TimingData* > timings;
 	
 
 private:
 	mutex timingsMutex;
+	map<string,TimingData* > timings;
 
 };
 

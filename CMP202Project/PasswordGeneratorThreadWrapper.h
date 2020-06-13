@@ -40,8 +40,8 @@ private:
 	char maxChar;
 
 	FunctionTimer* ft;
-	TimingData* myTimingFull;
-	TimingData* myTimingWork;
+	TimingData* timingFull;
+	//TimingData* timingWork;
 
 	bool threadRunning;
 };

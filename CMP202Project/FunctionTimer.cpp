@@ -28,6 +28,11 @@ TimingData * FunctionTimer::RunNewTiming(string name, void(*function)(),int iter
 	return timings[name];
 }
 
+TimingData* FunctionTimer::GetTiming(string name)
+{
+	return timings[name];
+}
+
 
 
 
