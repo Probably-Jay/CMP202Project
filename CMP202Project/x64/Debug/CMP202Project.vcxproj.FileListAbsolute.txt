@@ -1,2 +1,0 @@
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\x64\Debug\CMP202Project.exe.lastcodeanalysissucceeded
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\x64\Debug\NativeCodeAnalysis.read.1.tlog

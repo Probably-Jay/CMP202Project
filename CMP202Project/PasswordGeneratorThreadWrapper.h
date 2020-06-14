@@ -14,6 +14,7 @@ class PasswordGeneratorThreadWrapper
 {
 public:
 	PasswordGeneratorThreadWrapper(Channel<std::string>* _passwordChannel,Barrier*_barrier, char _minChar, char _maxChar, FunctionTimer * _ft);
+	PasswordGeneratorThreadWrapper();
 	~PasswordGeneratorThreadWrapper();
 	void SetSegments(string _prev, char _segMin, char _segMax);
 	void Begin();
@@ -21,9 +22,10 @@ public:
 
 	PasswordGeneratorThreadWrapper(const PasswordGeneratorThreadWrapper&) = delete; // cannot be construction-copied 
 	PasswordGeneratorThreadWrapper& operator=(const PasswordGeneratorThreadWrapper&) = delete; // cannot be copied
-private:
 
 	inline bool addOne(char& c);
+	
+private:
 	void GeneratePassword();
 	char segMin;
 	char segMax;
@@ -40,7 +42,7 @@ private:
 	char maxChar;
 
 	FunctionTimer* ft;
-	TimingData* timingFull;
+	TimingData * timingFull;
 	//TimingData* timingWork;
 
 	bool threadRunning;

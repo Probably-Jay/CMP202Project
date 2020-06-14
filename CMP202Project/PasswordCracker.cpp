@@ -72,7 +72,7 @@ string PasswordCracker::CrackPassword(std::size_t _hash)
 
 void PasswordCracker::GeneratePasswordGuesses(int _numberOfGeneratorThreads) // manages generator threads 
 {
-	string insidefull = "GenerationInside_Full_";
+	string insidefull = "GenerationInside_Full_100_";
 	functionTimer.CreateManualTiming(insidefull);
 	//functionTimer.CreateManualTiming("GenerationInside_Work_");
 

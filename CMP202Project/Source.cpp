@@ -62,30 +62,53 @@ string currentPasswordRoot = "";
 //
 //}
 
+class fish{};
 
+
+
+//int main() {
+//	for (size_t i = 0; i < 0; i++)
+//	{
+//		auto beginTime = high_resolution_clock::now();
+//
+//
+//		PasswordCracker cracker;
+//
+//		string password = "~ss";
+//
+//		size_t hashedPassword = hash<string>{}(password);
+//
+//		//cout << "looking for: \"" << password << "\", hash: " << hashedPassword << endl;
+//		string foundPassword = cracker.CrackPassword(hashedPassword);
+//
+//		auto endTime = high_resolution_clock::now();
+//		auto elapsedTime = duration_cast<duration<double>>(endTime - beginTime);
+//		auto time = (elapsedTime.count());
+//
+//
+//		cout << time << endl;
+//	}
+//
+//	PasswordGeneratorThreadWrapper pw;
+	//ft.RunNewTiming<bool,char&>("threadWrapperWork", pw.addOne, 1000,  c);
+//
+//}
+
+void foo() {
+}
+int bar(int g) {
+	return g;
+}
+fish* func(char&, int, string) {
+	return new fish{};
+}
 
 int main() {
-	for (size_t i = 0; i < 1; i++)
-	 {
-		auto beginTime = high_resolution_clock::now();
+	FunctionTimer ft;
+	char c = ' ';
 
-
-		PasswordCracker cracker;
-
-		string password = "pass";
-
-		size_t hashedPassword = hash<string>{}(password);
-
-		//cout << "looking for: \"" << password << "\", hash: " << hashedPassword << endl;
-		string foundPassword = cracker.CrackPassword(hashedPassword);
-
-		auto endTime = high_resolution_clock::now();
-		auto elapsedTime = duration_cast<duration<double>>(endTime - beginTime);
-		auto time = (elapsedTime.count());
-		
-
-		cout << time << endl;
-	}
-
+	ft.RunNewTiming("foo time",foo, 1);
+	ft.RunNewTiming<int,int>("bar time",bar, 1, 5);
+	ft.RunNewTiming<fish*, char&, int, string>("func time", func, 1, c, 5, string{ "hi" });
 
 }

@@ -1,7 +1,7 @@
 #include "TimingData.h"
 
 TimingData::TimingData(string name)
-	:name(name), function(nullptr), iterations(0), consoleOut(false), timeLock(timeMutex,std::defer_lock)
+	:name(name),  timingCount(0), timeLock(timeMutex,std::defer_lock)
 {
 	auto timeStart = system_clock::to_time_t(system_clock::now()); // current time to create unique file name (ensures no accidental overwite)
 	filename = "Timings\\" + name + to_string(timeStart) + ".csv";
@@ -11,36 +11,39 @@ TimingData::TimingData(string name)
 	
 }
 
-TimingData::TimingData(string name, void(*f)(), int ittr, bool consoleOut)
-	:name(name), function(f), iterations(ittr), consoleOut(consoleOut), timeLock(timeMutex, std::defer_lock)
-{
-	auto timeStart = system_clock::to_time_t(system_clock::now()); // current time to create unique file name (ensures no accidental overwite)
-	filename = "Timings\\" + name + to_string(timeStart) + ".csv";
-
-	file.open(filename);
-}
 
 TimingData::~TimingData()
 {
 	TryClose();
 }
 
-void TimingData::ManualTimingStart()
+void TimingData::ManualTimingStart(int numberOfTimings)
 {
 	timeLock.lock();
 	beginTime = high_resolution_clock::now();
+	elapsedTime = duration_cast<duration<double>>(beginTime - beginTime); // 0
+	if (timingCount == 0) {
+		timingCount = numberOfTimings;
+	}
 }
 
 void TimingData::ManualTimingStop(bool fast)
 {
+	
+	timingCount--;
 	endTime = high_resolution_clock::now();
-	elapsedTime = duration_cast<duration<double>>(endTime - beginTime);
-	timings.push_back(elapsedTime.count());
-	string result = to_string(elapsedTime.count()) + ',';
+	elapsedTime += duration_cast<duration<double>>(endTime - beginTime);
+	if (timingCount ==0) {
+		timings.push_back(elapsedTime.count());
+		timingResult = to_string(elapsedTime.count()) + ',';
+	}
+	
 	timeLock.unlock();
-	if (!fast) {
+
+
+	if ( !fast && timingCount == 0 ) {
 		lock_guard<mutex> lk(fileWriteMutex); // raii, this next step might take a long time so seperate mutex lock
-		file << result;
+		file << timingResult;
 	}
 }
 
@@ -52,23 +55,6 @@ void TimingData::EndTiming()
 
 
 
-void TimingData::RunFunctionTiming()
-{
-	if (consoleOut) { OutputBegin(); }
-	TryOpen();
-	for (int i = 0; i < iterations; i++) {
-		beginTime = high_resolution_clock::now();
-		CallFunc(function); // inline function call to do the timed function
-		endTime = high_resolution_clock::now();
-		elapsedTime = duration_cast<duration<double>>(endTime - beginTime);
-		timings.push_back(elapsedTime.count());
-		string result = to_string(elapsedTime.count()) + ',';
-		file << result;
-		if (consoleOut) { OutputProgress(i,iterations); }
-	}
-	file << endl;
-	if (consoleOut) { OuputEnd(); }
-}
 
 double TimingData::CalculateMedianTime()
 {
