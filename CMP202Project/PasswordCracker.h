@@ -23,7 +23,7 @@ using std::vector;
 constexpr auto MINCHAR = ' ';
 constexpr auto MAXCHAR = '~';
 
-constexpr auto DEFAULTMAXBUFFERSIZE = 1000;
+constexpr auto DEFAULTMAXBUFFERSIZE = 1000000000000;
 constexpr auto DEFAULNUMBEROFGENERATORTHREADS = 1;
 constexpr auto DEFAULNUMBEROFHASHTHREADS = 1;
 constexpr auto DEFAULNUMBEROFCOMPARISONTHREADS = 1;
@@ -47,22 +47,11 @@ public:
 	~PasswordCracker();
 
 	string CrackPassword(std::size_t hash);
-	//void Timings();
-
-	FunctionTimer functionTimer;
 
 
-	//TimingData * generationMainTimingFull;
-	//TimingData * generationTimingMainWorkOnly;
-	//
-	//
-	//TimingData* hashingTimingFull;
-	//TimingData* hashingTimingWorkOnly;
-	//
-	//TimingData* comparisonTimingFull;
-	//TimingData* comparisonTimingWorkOnly;
 
-private:
+
+//private:
 	bool active;
 
 	// private member funcitons

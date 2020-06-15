@@ -28,6 +28,9 @@
     <Filter Include="Header Files\FunctionTimerHeader">
       <UniqueIdentifier>{76ab6a7d-6e94-423d-a3c8-5f39ebaad56e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\FunctionTimerTemplateSource">
+      <UniqueIdentifier>{de167c73-6bb5-4b10-913a-e8dd8c1b2ec2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -78,6 +81,12 @@
   <ItemGroup>
     <None Include="Channel.tpp">
       <Filter>Template Files</Filter>
+    </None>
+    <None Include="TimingDataGlobal.tpp">
+      <Filter>Source Files\FunctionTimerTemplateSource</Filter>
+    </None>
+    <None Include="TimingDataMember.tpp">
+      <Filter>Source Files\FunctionTimerTemplateSource</Filter>
     </None>
   </ItemGroup>
 </Project>

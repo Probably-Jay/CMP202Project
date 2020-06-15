@@ -144,6 +144,8 @@
     <None Include="Channel.tpp">
       <FileType>Document</FileType>
     </None>
+    <None Include="TimingDataGlobal.tpp" />
+    <None Include="TimingDataMember.tpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

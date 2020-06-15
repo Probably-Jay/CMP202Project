@@ -1,31 +1,35 @@
-﻿  PasswordCracker.cpp
+﻿  FunctionTimer.cpp
+  PasswordCracker.cpp
 C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(113,25): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(126,40): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  FunctionTimer.cpp
   PasswordGeneratorThreadWrapper.cpp
   Source.cpp
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingData.h(121,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingData.h(110): message : while compiling class template member function 'void TimingDataTemplate<T_ret>::RunFunctionTiming(int)'
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingDataMember.tpp(27,39): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingDataMember.tpp(10): message : while compiling class template member function 'void TimingDataMember<T_caller,T_ret,char &>::RunFunctionTiming(const int,const int,T_caller *,char &)'
           with
           [
-              T_ret=void
+              T_caller=PasswordGeneratorThreadWrapper,
+              T_ret=bool
           ]
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\FunctionTimer.h(54): message : see reference to function template instantiation 'void TimingDataTemplate<T_ret>::RunFunctionTiming(int)' being compiled
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\FunctionTimer.h(74): message : see reference to function template instantiation 'void TimingDataMember<T_caller,T_ret,char &>::RunFunctionTiming(const int,const int,T_caller *,char &)' being compiled
           with
           [
-              T_ret=void
+              T_caller=PasswordGeneratorThreadWrapper,
+              T_ret=bool
           ]
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\FunctionTimer.h(48): message : see reference to class template instantiation 'TimingDataTemplate<T_ret>' being compiled
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\FunctionTimer.h(68): message : see reference to class template instantiation 'TimingDataMember<T_caller,T_ret,char &>' being compiled
           with
           [
-              T_ret=void
+              T_caller=PasswordGeneratorThreadWrapper,
+              T_ret=bool
           ]
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\Source.cpp(109): message : see reference to function template instantiation 'TimingData *FunctionTimer::RunNewTiming<void,>(std::string,T_ret (__cdecl *)(void),int)' being compiled
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\Source.cpp(119): message : see reference to function template instantiation 'TimingData *FunctionTimer::RunNewTiming<PasswordGeneratorThreadWrapper,bool,char&>(std::string,T_ret (__cdecl PasswordGeneratorThreadWrapper::* )(char &),T_caller *,const int,const int,char &)' being compiled
           with
           [
-              T_ret=void
+              T_ret=bool,
+              T_caller=PasswordGeneratorThreadWrapper
           ]
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingData.h(121,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingDataMember.tpp(27,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   TimingData.cpp
 C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingData.cpp(66,54): warning C4244: '=': conversion from '_Ty' to 'float', possible loss of data
           with

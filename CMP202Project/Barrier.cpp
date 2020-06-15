@@ -28,10 +28,11 @@ void Barrier::UnblockAll()
 	cv.notify_all();
 }
 
-void Barrier::UnblockAllandDisable()
+void Barrier::UnblockAllAndDisable()
 {
 	enabled = false;
 
-	barrierUseCount = std::numeric_limits<int>::max() *0.7f; // a really big number
+	barrierUseCount++;
+
 	cv.notify_all();
 }

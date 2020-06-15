@@ -62,12 +62,12 @@ string currentPasswordRoot = "";
 //
 //}
 
-class fish{};
+
 
 
 
 //int main() {
-//	for (size_t i = 0; i < 0; i++)
+//	for (size_t i = 0; i < 1; i++)
 //	{
 //		auto beginTime = high_resolution_clock::now();
 //
@@ -89,12 +89,20 @@ class fish{};
 //		cout << time << endl;
 //	}
 //
-//	PasswordGeneratorThreadWrapper pw;
-	//ft.RunNewTiming<bool,char&>("threadWrapperWork", pw.addOne, 1000,  c);
 //
 //}
 
+
+
+class fish {
+public:
+	void hoo() {
+		cout << "hoo" << endl;
+	}
+};
+
 void foo() {
+	cout << "foo" << endl;
 }
 int bar(int g) {
 	return g;
@@ -102,13 +110,27 @@ int bar(int g) {
 fish* func(char&, int, string) {
 	return new fish{};
 }
-
+ 
 int main() {
 	FunctionTimer ft;
-	char c = ' ';
+	PasswordCracker crac;
+	crac.currentPasswordRoot = "";
+	
+	
 
-	ft.RunNewTiming("foo time",foo, 1);
-	ft.RunNewTiming<int,int>("bar time",bar, 1, 5);
-	ft.RunNewTiming<fish*, char&, int, string>("func time", func, 1, c, 5, string{ "hi" });
+	int itt = 5000;
+	int rep = 5000;
+
+	
+	
+	
+	
+
+	//ft.RunNewTiming("hashJustWork", (FT::lambdacast<size_t,const char *[9],int,int>) [](const char ** c,  int i, int l) {size_t hashedText = hash<string>{}(c[i%l]); return hashedText; }, itt, rep,words,9,9);
+	ft.RunNewTiming<PasswordCracker>("update", &PasswordCracker::UpdatePasswordRoot, &crac, itt, rep);
+
+	
+	
+	
 
 }

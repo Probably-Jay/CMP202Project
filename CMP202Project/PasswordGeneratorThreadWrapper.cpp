@@ -1,7 +1,7 @@
 #include "PasswordGeneratorThreadWrapper.h"
 
 
-PasswordGeneratorThreadWrapper::PasswordGeneratorThreadWrapper(Channel<std::string>* _passwordChannel,Barrier*_barrier, char _minChar, char _maxChar, FunctionTimer * _ft)
+PasswordGeneratorThreadWrapper::PasswordGeneratorThreadWrapper(Channel<std::string>* _passwordChannel,Barrier*_barrier, char _minChar, char _maxChar)
 	: passwordChannel(_passwordChannel)
 	, minChar(_minChar)
 	, maxChar(_maxChar)
@@ -11,15 +11,10 @@ PasswordGeneratorThreadWrapper::PasswordGeneratorThreadWrapper(Channel<std::stri
 	, currentChar(segMin-1)
 	, threadRunning(false)
 	, thisThread(NULL)
-	, ft(_ft)
 {
-	timingFull = ft->GetTiming("GenerationInside_Full_100_");
-	//myTimingWork = ft->GetTiming("GenerationInside_Work_"); // move outside
 }
 
-PasswordGeneratorThreadWrapper::PasswordGeneratorThreadWrapper()
-{
-}
+
 
 PasswordGeneratorThreadWrapper::~PasswordGeneratorThreadWrapper()
 {
@@ -44,9 +39,10 @@ void PasswordGeneratorThreadWrapper::Begin()
 void PasswordGeneratorThreadWrapper::Finish() // will end thread after its current cycle ends
 {
 	threadRunning = false;
-	barrier->UnblockAll(); // in case threads are stuck at barrier
+	barrier->UnblockAllAndDisable(); // in case threads are stuck at barrier
 	if(thisThread){
 	if(thisThread->joinable())
+		//barrier->UnblockAll(); // in case threads are stuck at barrier double check
 		thisThread->join();
 	delete thisThread;
 	thisThread = nullptr;}
@@ -59,6 +55,7 @@ inline bool PasswordGeneratorThreadWrapper::addOne(char& c)
 		return true; // we still have more to add
 	}
 	else {
+		c = segMin;
 		return false; // we have finished this segment
 	}
 
@@ -73,19 +70,15 @@ void PasswordGeneratorThreadWrapper::GeneratePassword()
 		barrier->ArriveAndWait(); // wait for segment to be updated, last wait called from main thread passes barrier
 		while (threadRunning)
 		{
-			//timingFull->ManualTimingStart(2);
 			bool stillWithinSegment = addOne(currentChar);
 
 			if (stillWithinSegment) { // not passed end of segment
 				passwordChannel->Write(prevString + currentChar);
 				//cout << prevString + currentChar << endl;
-				timingFull->ManualTimingStop();
 
 			}
 			else {
-				//if(threadRunning) // prevents thread from possibly getting stuck at destruction
-					barrier->ArriveAndWait(); // wait for the rest of the threads to finish
-					timingFull->ManualTimingStop();
+				barrier->ArriveAndWait(); // wait for the rest of the threads to finish
 
 				break; // break and wait again for seg to be updated
 			}

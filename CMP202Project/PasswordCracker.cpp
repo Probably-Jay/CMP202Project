@@ -72,13 +72,10 @@ string PasswordCracker::CrackPassword(std::size_t _hash)
 
 void PasswordCracker::GeneratePasswordGuesses(int _numberOfGeneratorThreads) // manages generator threads 
 {
-	string insidefull = "GenerationInside_Full_100_";
-	functionTimer.CreateManualTiming(insidefull);
-	//functionTimer.CreateManualTiming("GenerationInside_Work_");
 
 
 	for (int i = 0; i < _numberOfGeneratorThreads; i++) {
-		generatorThreads.push_back(new PasswordGeneratorThreadWrapper(&plainTextPasswordGuessChannel, &generationBarrier, MINCHAR, MAXCHAR, &functionTimer));
+		generatorThreads.push_back(new PasswordGeneratorThreadWrapper(&plainTextPasswordGuessChannel, &generationBarrier, MINCHAR, MAXCHAR));
 	}
 
 	SegmentPossiblePasswordGuesses(); // initialise generator threads
@@ -98,7 +95,7 @@ void PasswordCracker::GeneratePasswordGuesses(int _numberOfGeneratorThreads) // 
 
 		//generationMainTimingFull->ManualTimingStop();
 	}
-	functionTimer.ManualTimingEnd(insidefull);
+	//functionTimer.ManualTimingEnd(insidefull);
 	// after password is found
 	for (auto& t : generatorThreads) {
 		t->Finish(); // join and cleanup for the started threads
@@ -122,16 +119,14 @@ void PasswordCracker::SegmentPossiblePasswordGuesses() // update the information
 void PasswordCracker::UpdatePasswordRoot()
 {
 
+	
+	const int len = currentPasswordRoot.length();
 
-	int len = currentPasswordRoot.length();
-	// root is initially empty string
-
-	int end = len - 1;
 	
 
-	for (int i = end; i >= 0; i--) { // for each letter in root, starting at far right
+	for (int i = len-1; i >= 0; i--) { // for each letter in root, starting at far right
 		if (currentPasswordRoot[i] < MAXCHAR) {  // if letter is less than max
-			currentPasswordRoot = currentPasswordRoot.substr(0, i) + (char)(currentPasswordRoot[i] + 1) + currentPasswordRoot.substr(i + (int)1, end - (int)i);
+			currentPasswordRoot = currentPasswordRoot.substr(0, i) + (char)(currentPasswordRoot[i] + 1) + currentPasswordRoot.substr(i + (int)1, len - 1  - (int)i);
 
 			return;
 		}
@@ -168,17 +163,17 @@ void PasswordCracker::PerformHash()
 void PasswordCracker::CompareHashToTarget()
 {
 	while (active) {
-		//comparisonTimingFull->ManualTimingStart();
 
 		PasswordHashPair guess = hashChannel.Read(); // block until completed hash avaiable
 		if ((guess.hash == targetHash)) {
 			passwordTextOutChannel.Write(guess.password); // signal end of search
 		}
 
-		//comparisonTimingFull->ManualTimingStop();
 
 	}
 }
+
+
 
 void PasswordCracker::WaitForEndOfSearch()
 {
@@ -191,7 +186,7 @@ void PasswordCracker::EndSearch()
 	active = false;
 	plainTextPasswordGuessChannel.UnblockAllandDisable();
 	hashChannel.UnblockAllandDisable();
-	generationBarrier.UnblockAllandDisable();
+	generationBarrier.UnblockAllAndDisable();
 }
 
 //void PasswordCracker::testOutput()

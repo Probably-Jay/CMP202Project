@@ -4,7 +4,6 @@
 #include "Channel.h"
 #include "Barrier.h"
 #include "thread"
-#include "FunctionTimer.h"
 
 using std::string;
 using std::thread;
@@ -12,9 +11,10 @@ using std::thread;
 
 class PasswordGeneratorThreadWrapper
 {
+
 public:
-	PasswordGeneratorThreadWrapper(Channel<std::string>* _passwordChannel,Barrier*_barrier, char _minChar, char _maxChar, FunctionTimer * _ft);
-	PasswordGeneratorThreadWrapper();
+	PasswordGeneratorThreadWrapper(Channel<std::string>* _passwordChannel,Barrier*_barrier, char _minChar, char _maxChar);
+
 	~PasswordGeneratorThreadWrapper();
 	void SetSegments(string _prev, char _segMin, char _segMax);
 	void Begin();
@@ -41,9 +41,6 @@ private:
 	char minChar;
 	char maxChar;
 
-	FunctionTimer* ft;
-	TimingData * timingFull;
-	//TimingData* timingWork;
 
 	bool threadRunning;
 };

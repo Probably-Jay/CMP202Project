@@ -62,9 +62,9 @@ protected:
 	float medianTiming;
 
 
-	time_point<steady_clock> beginTime;
-	time_point<steady_clock> endTime;
-	duration<double> elapsedTime;
+	time_point<high_resolution_clock> beginTime;
+	time_point<high_resolution_clock> endTime;
+	duration<long double> elapsedTime;
 	string filename;
 	ofstream file;
 	bool consoleOut;
@@ -79,13 +79,13 @@ protected:
 };
 
 template<class T_ret, class ... T_param>
-class TimingDataTemplate : TimingData
+class TimingDataGlobal : TimingData
 {
 	friend class FunctionTimer;
 public:
 
-	TimingDataTemplate(string name, T_ret(*f)(T_param ...));
-	void RunFunctionTiming(int itterations, T_param ... otherParamaters);
+	TimingDataGlobal(string name, T_ret(*f)(T_param ...));
+	void RunFunctionTiming(const int itterations, const int repititions, T_param ... otherParamaters);
 
 private:
 
@@ -98,29 +98,26 @@ private:
 
 };
 
-template<class T_ret, class ... T_param>
-TimingDataTemplate<T_ret ,T_param...>::TimingDataTemplate(string name, T_ret(*f)(T_param ...))
-	:TimingData(name), function(f)
+template<class T_caller, class T_ret, class ... T_param>
+class TimingDataMember : TimingData
 {
-}
+	friend class FunctionTimer;
+public:
+
+	TimingDataMember(string name, T_ret(T_caller::*f)(T_param ...));
+	void RunFunctionTiming(const int itterations, const int repititions, T_caller * caller, T_param ... otherParamaters);
+
+private:
+
+	T_ret(T_caller::*function)(T_param ...); // function that will be timed
+
+	inline void CallFunc(T_ret(T_caller::*func)(T_param ...), T_caller * caller,T_param ... params) { (caller->*func)(params ...); }; // calls function pointer
 
 
 
-template<class T_ret, class ... T_param>
-void TimingDataTemplate<T_ret, T_param...>::RunFunctionTiming(int iterations, T_param ... otherParamaters)
-{
-	if (consoleOut) { OutputBegin(); }
-	TryOpen();
-	for (int i = 0; i < iterations; i++) {
-		beginTime = high_resolution_clock::now();
-		CallFunc(function, otherParamaters ...); // inline function call to do the timed function
-		endTime = high_resolution_clock::now();
-		elapsedTime = duration_cast<duration<double>>(endTime - beginTime);
-		timings.push_back(elapsedTime.count());
-		string result = to_string(elapsedTime.count()) + ',';
-		file << result;
-		if (consoleOut) { OutputProgress(i, iterations); }
-	}
-	file << endl;
-	if (consoleOut) { OuputEnd(); }
-}
+
+};
+
+#include "TimingDataGlobal.tpp"
+#include "TimingDataMember.tpp"
+
