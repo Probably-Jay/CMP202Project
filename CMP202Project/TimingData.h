@@ -8,6 +8,9 @@
 #include <algorithm>
 #include <iostream>
 
+#include <chrono> 
+#include <ctime> 
+
 #include <mutex>
 
 using std::string;
@@ -21,6 +24,7 @@ using std::endl;
 using std::mutex;
 using std::unique_lock;
 using std::lock_guard;
+
 
 using namespace std::chrono;
 
@@ -41,9 +45,18 @@ public:
 protected:
 	
 	string name;
+
+
+	inline void SortTimings() {sort(timings.begin(), timings.end());}; // sort the list so we can find the middle value}
+
 	double CalculateMedianTime();
 	
 	void Record(string data);
+
+	void RecordSortedList();
+
+	void RecordTimePerExecution();
+
 
 	void OutputProgress(float progress, float total);
 	void OuputEnd();
@@ -67,7 +80,7 @@ protected:
 	duration<long double> elapsedTime;
 	string filename;
 	ofstream file;
-	bool consoleOut;
+	bool consoleOut = true;
 
 	mutex timeMutex;
 	mutex fileWriteMutex;
@@ -89,6 +102,7 @@ public:
 
 private:
 
+
 	T_ret(*function)(T_param ...); // function that will be timed
 
 	inline void CallFunc(T_ret(*func)(T_param ...),T_param ... params) { (*func)(params ...); }; // calls function pointer
@@ -108,6 +122,7 @@ public:
 	void RunFunctionTiming(const int itterations, const int repititions, T_caller * caller, T_param ... otherParamaters);
 
 private:
+
 
 	T_ret(T_caller::*function)(T_param ...); // function that will be timed
 

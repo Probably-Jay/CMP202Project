@@ -49,9 +49,14 @@ void TimingData::ManualTimingStop(bool fast)
 
 void TimingData::EndTiming()
 {
+	SortTimings();
+	RecordSortedList();
 	CalculateMedianTime();
+	RecordTimePerExecution();
 	TryClose();
 }
+
+
 
 
 
@@ -59,11 +64,10 @@ void TimingData::EndTiming()
 double TimingData::CalculateMedianTime()
 {
 
-	auto timingList = timings;
+	
+	// already sorted
 
-	sort(timingList.begin(), timingList.end()); // sort the list so we can find the middle value
-
-	medianTiming = timingList[timingList.size() / (int)2]; // get the middle time
+	medianTiming = timings[timings.size() / (int)2]; // get the middle time
 
 	Record(to_string(medianTiming)); // record the time
 
@@ -74,7 +78,26 @@ double TimingData::CalculateMedianTime()
 void TimingData::Record(string data)
 {
 	TryOpen();
-	file << data << endl;
+	file << data <<',' << endl ;
+}
+
+void TimingData::RecordSortedList()
+{
+	for (auto s : timings) {
+		file << s << ',';
+	}
+	file << endl ;
+}
+
+void TimingData::RecordTimePerExecution()
+{
+	// this will only work with excel
+	file << ',' << endl
+		<< endl
+		<< "=3:3/A2" << ',' << endl // row of sorted times / number of calls per timing
+		<< "=A4/A2" << ',' << endl // median / number of calls per timing
+		<< "=A8*1000000000" << ',' << "nano-seconds per execution, average (median)" << ','<< endl; // seconds -> nanoseconds
+
 }
 
 void TimingData::OutputProgress(float progress, float total)

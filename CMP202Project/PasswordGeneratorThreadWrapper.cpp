@@ -52,9 +52,11 @@ inline bool PasswordGeneratorThreadWrapper::addOne(char& c)
 {
 	if (c < segMax) { // if less than the end of this thread's segment
 		c++;
+		passwordChannel->Write(prevString + currentChar);
 		return true; // we still have more to add
 	}
 	else {
+		passwordChannel->Write(prevString + currentChar);
 		c = segMin;
 		return false; // we have finished this segment
 	}

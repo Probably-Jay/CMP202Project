@@ -13,7 +13,7 @@ class PasswordGeneratorThreadWrapper
 {
 
 public:
-	PasswordGeneratorThreadWrapper(Channel<std::string>* _passwordChannel,Barrier*_barrier, char _minChar, char _maxChar);
+	PasswordGeneratorThreadWrapper(Channel<std::string>* _passwordChannel, Barrier*_barrier, char _minChar, char _maxChar);
 
 	~PasswordGeneratorThreadWrapper();
 	void SetSegments(string _prev, char _segMin, char _segMax);
@@ -25,7 +25,7 @@ public:
 
 	inline bool addOne(char& c);
 	
-private:
+//private:
 	void GeneratePassword();
 	char segMin;
 	char segMax;

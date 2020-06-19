@@ -1,3 +1,4 @@
+#include "TimingData.h"
 #pragma once
 template<class T_ret, class ... T_param>
 TimingDataGlobal<T_ret ,T_param...>::TimingDataGlobal(string name, T_ret(*f)(T_param ...))
@@ -28,6 +29,11 @@ void TimingDataGlobal<T_ret, T_param...>::RunFunctionTiming(const int iterations
 		file << result;
 		if (consoleOut) { OutputProgress(i, iterations); }
 	}
-	file << endl << repititions << ',' << endl;
+	file << endl << repititions << ',' << iterations << ',' << "Repititions per timing - Number of timings" << ',' << endl;
+
+
+	
 	if (consoleOut) { OuputEnd(); }
 }
+
+

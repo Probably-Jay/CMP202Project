@@ -1,3 +1,4 @@
+#include "TimingData.h"
 #pragma once
 template<class T_caller, class T_ret, class ...T_param>
 TimingDataMember<T_caller, T_ret, T_param ... >::TimingDataMember(string name, T_ret(T_caller::*f)(T_param...))
@@ -17,7 +18,7 @@ void TimingDataMember<T_caller, T_ret, T_param ...>::RunFunctionTiming(const int
 
 		CallFunc(function, caller, otherParamaters ...); // inline function call to do the timed function
 
-	}
+		}
 
 		endTime = high_resolution_clock::now();
 		elapsedTime = duration_cast<duration<long double>>(endTime - beginTime);
@@ -26,6 +27,8 @@ void TimingDataMember<T_caller, T_ret, T_param ...>::RunFunctionTiming(const int
 		file << result;
 		if (consoleOut) { OutputProgress(i, iterations); }
 	}
-	file << endl << repititions << ',' << endl;
+	file << endl << repititions << ',' << iterations << ','<< "Repititions per timing - Number of timings" << ','<<  endl ;
+	
 	if (consoleOut) { OuputEnd(); }
 }
+

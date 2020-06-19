@@ -49,7 +49,11 @@ public:
 	string CrackPassword(std::size_t hash);
 
 
+	void UpdatePasswordRootAndSeg();
 
+	int doGen = 0;
+
+	PasswordGeneratorThreadWrapper pw;
 
 //private:
 	bool active;
