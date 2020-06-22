@@ -37,3 +37,10 @@ void Semaphore::Disable()
 	poolCount = std::numeric_limits<int>::max() *0.7f; // a really big number
 	cv.notify_all();
 }
+
+void Semaphore::Reset(int _initial)
+{
+	Disable();
+	poolCount = _initial;
+	cv.notify_all();
+}

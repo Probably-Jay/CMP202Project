@@ -3,7 +3,7 @@
 #include "Barrier.h"
 #include "PasswordGeneratorThreadWrapper.h"
 
-#include "FunctionTimer.h"
+//#include "FunctionTimer.h"
 
 #include <string>
 #include <mutex>
@@ -23,7 +23,7 @@ using std::vector;
 constexpr auto MINCHAR = ' ';
 constexpr auto MAXCHAR = '~';
 
-constexpr auto DEFAULTMAXBUFFERSIZE = 1000000000000;
+constexpr auto DEFAULTMAXBUFFERSIZE = 10000;
 constexpr auto DEFAULNUMBEROFGENERATORTHREADS = 1;
 constexpr auto DEFAULNUMBEROFHASHTHREADS = 1;
 constexpr auto DEFAULNUMBEROFCOMPARISONTHREADS = 1;
@@ -49,13 +49,11 @@ public:
 	string CrackPassword(std::size_t hash);
 
 
-	void UpdatePasswordRootAndSeg();
+	//void UpdatePasswordRootAndSeg();
 
-	int doGen = 0;
 
-	PasswordGeneratorThreadWrapper pw;
 
-//private:
+private:
 	bool active;
 
 	// private member funcitons
@@ -75,8 +73,7 @@ public:
 	void WaitForEndOfSearch();
 	void EndSearch();
 
-	// debug
-	//void testOutput();
+	
 
 
 	// internal thread helper functions
@@ -93,7 +90,7 @@ public:
 	vector<thread*> comparisonThreads;
 	thread*			waitForEndThread;
 
-	mutex outMtx;
+	//mutex outMtx;
 
 	// member variables
 	size_t targetHash;

@@ -19,7 +19,7 @@ PasswordCracker::PasswordCracker(const int _numberOfGeneratorThreads,
 	, waitForEndThread(nullptr)
 	, foundPassword("")
 
-	,pw(&plainTextPasswordGuessChannel,&generationBarrier,MINCHAR,MAXCHAR)
+	//,pw(&plainTextPasswordGuessChannel,&generationBarrier,MINCHAR,MAXCHAR)
 {
 }
 
@@ -33,16 +33,16 @@ PasswordCracker::~PasswordCracker()
 
 string PasswordCracker::CrackPassword(std::size_t _hash)
 {
-
-	char c = ' ';
 	targetHash = _hash;
 	active = true;
-	if(doGen % 95 == 0)
-		GeneratePasswordGuesses(0);
-	pw.addOne(c);
-	doGen++;
-	PerformHash();
-	CompareHashToTarget();
+
+	//char c = ' ';
+	//if(doGen % 95 == 0)
+	//	GeneratePasswordGuesses(0);
+	//pw.addOne(c);
+	//doGen++;
+	//PerformHash();
+	//CompareHashToTarget();
 
 	//generationMainTimingFull = functionTimer.CreateManualTiming("GenerationMain_Full_");
 	////generationTimingMainWorkOnly = functionTimer.CreateManualTiming("GenerationMain_Work_");
@@ -53,24 +53,24 @@ string PasswordCracker::CrackPassword(std::size_t _hash)
 	//comparisonTimingFull = functionTimer.CreateManualTiming("Comparison_Full_");
 	/////comparisonTimingWorkOnly = functionTimer.CreateManualTiming("Comparison_Work_");
 
-//	BeginThreads(waitForEndThread, &PasswordCracker::WaitForEndOfSearch); // thread will wait until password has been found
-//	
-//	// threads to do search
-//	BeginThreads(mainGeneratorThread, &PasswordCracker::GeneratePasswordGuesses, numberOfGeneratorThreads);
-//	BeginThreads(hashThreads, &PasswordCracker::PerformHash, numberOfHashingThreads);
-//	BeginThreads(comparisonThreads, &PasswordCracker::CompareHashToTarget, numberOfComparisonThreads);
-//
-//
-//	JoinThreads(waitForEndThread); // main thread will wait here for end of search
-//
-//	//generationMainTimingFull->EndTiming();
-//	//hashingTimingFull->EndTiming();
-//	//comparisonTimingFull->EndTiming();
-//
-//	// cleanup threads
-//	JoinThreads(mainGeneratorThread);
-//	JoinThreads(hashThreads);
-//	JoinThreads(comparisonThreads);
+	BeginThreads(waitForEndThread, &PasswordCracker::WaitForEndOfSearch); // thread will wait until password has been found
+	
+	// threads to do search
+	BeginThreads(mainGeneratorThread, &PasswordCracker::GeneratePasswordGuesses, numberOfGeneratorThreads);
+	BeginThreads(hashThreads, &PasswordCracker::PerformHash, numberOfHashingThreads);
+	BeginThreads(comparisonThreads, &PasswordCracker::CompareHashToTarget, numberOfComparisonThreads);
+
+
+	JoinThreads(waitForEndThread); // main thread will wait here for end of search
+
+	//generationMainTimingFull->EndTiming();
+	//hashingTimingFull->EndTiming();
+	//comparisonTimingFull->EndTiming();
+
+	// cleanup threads
+	JoinThreads(mainGeneratorThread);
+	JoinThreads(hashThreads);
+	JoinThreads(comparisonThreads);
 
 	//GeneratePasswordGuesses();
 
@@ -94,7 +94,7 @@ void PasswordCracker::GeneratePasswordGuesses(int _numberOfGeneratorThreads) // 
 		t->Begin(); // these threads are responsible for incrementing the last character in the current guess (90% of the work)
 	}
 	generationBarrier.ArriveAndWait(); // wait for this to finnish, then begin generation
-	active = true;
+
 	while (active) { // main work of thread
 		//generationMainTimingFull->ManualTimingStart();
 
@@ -103,7 +103,7 @@ void PasswordCracker::GeneratePasswordGuesses(int _numberOfGeneratorThreads) // 
 		UpdatePasswordRoot(); // progress root (all but right most character) of password
 		SegmentPossiblePasswordGuesses(); // update generator threads
 		generationBarrier.ArriveAndWait(); // wait for update to finnish, then begin generation
-		active = false;
+
 		//generationMainTimingFull->ManualTimingStop();
 	}
 	//functionTimer.ManualTimingEnd(insidefull);
@@ -113,20 +113,20 @@ void PasswordCracker::GeneratePasswordGuesses(int _numberOfGeneratorThreads) // 
 	}
 }
 
-void PasswordCracker::UpdatePasswordRootAndSeg() {
-	UpdatePasswordRoot(); // progress
-	SegmentPossiblePasswordGuesses();
-}
+//void PasswordCracker::UpdatePasswordRootAndSeg() {
+//	UpdatePasswordRoot(); // progress
+//	SegmentPossiblePasswordGuesses();
+//}
 
 void PasswordCracker::SegmentPossiblePasswordGuesses() // update the information generator threads use
 {
 
-	int numberOfCharacters = (MAXCHAR - MINCHAR)+1; // "a-z" + "A-Z" + "0-9" + " !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~" - continuous chars from ' ' to '~'
+	const int numberOfCharacters = (MAXCHAR - MINCHAR)+1; // "a-z" + "A-Z" + "0-9" + " !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~" - continuous chars from ' ' to '~'
 
-	int aproxWorkPerThread = ceil((float)numberOfCharacters / (float)numberOfGeneratorThreads);
+	const int aproxWorkPerThread = ceil((float)numberOfCharacters / (float)numberOfGeneratorThreads);
 
 	for (int i = 0; i < numberOfGeneratorThreads; i++) {
-		char max = (char)(MINCHAR + ((i + 1) * aproxWorkPerThread));
+		const char max = (char)(MINCHAR + ((i + 1) * aproxWorkPerThread));
 		generatorThreads[i]->SetSegments(currentPasswordRoot, (char)(MINCHAR + (i * aproxWorkPerThread)), max );
 	}
 	
@@ -164,14 +164,14 @@ void PasswordCracker::UpdatePasswordRoot()
 
 void PasswordCracker::PerformHash()
 {
-	active = true;
+	//active = true;
 	while(active) { // read-only in this context so no race condition
-
+		//string text = "hgeurs";
 		string text = plainTextPasswordGuessChannel.Read(); // block until new text is available, then read from it
 		size_t hashedText = hash<string>{}(text); // perfom the hash using string templated hash functor struct (standard library) 
 		hashChannel.Write(PasswordHashPair{ text, hashedText }); // push this to the hash channel, this operation will block if the channel is full
 	
-		active = false;
+		//active = false;
 	}
 }
 
@@ -179,15 +179,15 @@ void PasswordCracker::PerformHash()
 
 void PasswordCracker::CompareHashToTarget()
 {
-	active = true;
+	//active = true;
 	while (active) {
-
+		//PasswordHashPair guess = PasswordHashPair{ "fhaeu", 168453135486 };
 		PasswordHashPair guess = hashChannel.Read(); // block until completed hash avaiable
 		if ((guess.hash == targetHash)) {
 			passwordTextOutChannel.Write(guess.password); // signal end of search
 		}
 
-		active = false;
+		//active = false;
 	}
 }
 

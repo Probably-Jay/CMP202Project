@@ -1,37 +1,42 @@
 ﻿  FunctionTimer.cpp
   PasswordCracker.cpp
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(113,25): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(126,40): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.h(43,58): warning C4309: 'default argument': truncation of constant value
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(126,25): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(139,46): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(139,46): warning C4267: 'initializing': conversion from 'size_t' to 'const int', possible loss of data
   PasswordGeneratorThreadWrapper.cpp
+  Semaphore.cpp
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\Semaphore.cpp(37,46): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   Source.cpp
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingDataMember.tpp(27,39): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingDataMember.tpp(10): message : while compiling class template member function 'void TimingDataMember<T_caller,T_ret,char &>::RunFunctionTiming(const int,const int,T_caller *,char &)'
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.h(43,58): warning C4309: 'default argument': truncation of constant value
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingDataMember.tpp(34,39): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingDataMember.tpp(12): message : while compiling class template member function 'void TimingDataMember<T_caller,T_ret,std::string>::RunFunctionTiming(const int,const int,T_caller *,std::string)'
           with
           [
-              T_caller=PasswordGeneratorThreadWrapper,
-              T_ret=bool
+              T_caller=Channel<std::string>,
+              T_ret=void
           ]
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\FunctionTimer.h(74): message : see reference to function template instantiation 'void TimingDataMember<T_caller,T_ret,char &>::RunFunctionTiming(const int,const int,T_caller *,char &)' being compiled
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\FunctionTimer.h(83): message : see reference to function template instantiation 'void TimingDataMember<T_caller,T_ret,std::string>::RunFunctionTiming(const int,const int,T_caller *,std::string)' being compiled
           with
           [
-              T_caller=PasswordGeneratorThreadWrapper,
-              T_ret=bool
+              T_caller=Channel<std::string>,
+              T_ret=void
           ]
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\FunctionTimer.h(68): message : see reference to class template instantiation 'TimingDataMember<T_caller,T_ret,char &>' being compiled
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\FunctionTimer.h(77): message : see reference to class template instantiation 'TimingDataMember<T_caller,T_ret,std::string>' being compiled
           with
           [
-              T_caller=PasswordGeneratorThreadWrapper,
-              T_ret=bool
+              T_caller=Channel<std::string>,
+              T_ret=void
           ]
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\Source.cpp(119): message : see reference to function template instantiation 'TimingData *FunctionTimer::RunNewTiming<PasswordGeneratorThreadWrapper,bool,char&>(std::string,T_ret (__cdecl PasswordGeneratorThreadWrapper::* )(char &),T_caller *,const int,const int,char &)' being compiled
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\Source.cpp(116): message : see reference to function template instantiation 'TimingData *FunctionTimer::RunNewTiming<Channel<std::string>,void,std::string>(std::string,T_ret (__cdecl Channel<std::string>::* )(std::string),T_caller *,const int,const int,std::string)' being compiled
           with
           [
-              T_ret=bool,
-              T_caller=PasswordGeneratorThreadWrapper
+              T_ret=void,
+              T_caller=Channel<std::string>
           ]
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingDataMember.tpp(27,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingDataMember.tpp(34,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   TimingData.cpp
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingData.cpp(66,54): warning C4244: '=': conversion from '_Ty' to 'float', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingData.cpp(70,48): warning C4244: '=': conversion from '_Ty' to 'float', possible loss of data
           with
           [
               _Ty=double

@@ -12,12 +12,32 @@ Channel<T>::Channel(int _max)
 {
 }
 
+//template<class T>
+//Channel<T>::Channel(const Channel & c)
+//	: maxSize(c.maxSize)
+//	, sem(c.sem)
+//	, emptySem(c.emptySem)
+//	, enabled(c.enabled)
+//{
+//}
+
 
 template<class T>
 Channel<T>::~Channel()
 {
 	UnblockAllandDisable();
+	buffer.clear();
 }
+
+//template<class T>
+//Channel<T>& Channel<T>::operator=(const Channel& c)
+//{
+//	maxSize = c.maxSize;
+//	sem = c.sem;
+//	emptySem = c.emptySem;
+//	enabled = c.enabled;
+//	return *this;
+//}
 
 template<class T>
 void Channel<T>::Write(T data)
@@ -52,4 +72,12 @@ void Channel<T>::UnblockAllandDisable()
 		sem.Disable();
 		emptySem.Disable();
 	}
+}
+
+template<class T>
+void Channel<T>::Clear()
+{
+	buffer.clear();
+	sem.Reset();
+	emptySem.Reset(maxSize);
 }
