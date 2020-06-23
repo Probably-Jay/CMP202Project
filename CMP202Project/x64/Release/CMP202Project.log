@@ -1,0 +1,18 @@
+﻿  FunctionTimer.cpp
+  PasswordCracker.cpp
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(126,25): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(139,46): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(139,46): warning C4267: 'initializing': conversion from 'size_t' to 'const int', possible loss of data
+  Source.cpp
+  TimingData.cpp
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingData.cpp(70,48): warning C4244: '=': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+  Generating code
+  2 of 664 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  CMP202Project.vcxproj -> C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\x64\Release\CMP202Project.exe

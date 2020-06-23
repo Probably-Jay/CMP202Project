@@ -13,24 +13,80 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\ThreadWrappersHeader">
+      <UniqueIdentifier>{5a936926-42f5-4f67-817b-3bd4f659c589}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ThreadWrappersSource">
+      <UniqueIdentifier>{36404eb4-2862-44f1-9d80-1810138ea457}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Template Files">
+      <UniqueIdentifier>{9c3005f8-5e73-44f3-96f3-31c9b53507dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FunctionTimerSource">
+      <UniqueIdentifier>{c5fc18b8-a3dd-4747-bc70-41b060380a75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FunctionTimerHeader">
+      <UniqueIdentifier>{76ab6a7d-6e94-423d-a3c8-5f39ebaad56e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FunctionTimerTemplateSource">
+      <UniqueIdentifier>{de167c73-6bb5-4b10-913a-e8dd8c1b2ec2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FunctionTimer.cpp">
+    <ClCompile Include="Semaphore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TimingData.cpp">
+    <ClCompile Include="PasswordGeneratorThreadWrapper.cpp">
+      <Filter>Source Files\ThreadWrappersSource</Filter>
+    </ClCompile>
+    <ClCompile Include="Barrier.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PasswordCracker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FunctionTimer.cpp">
+      <Filter>Source Files\FunctionTimerSource</Filter>
+    </ClCompile>
+    <ClCompile Include="TimingData.cpp">
+      <Filter>Source Files\FunctionTimerSource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FunctionTimer.h">
+    <ClInclude Include="Semaphore.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Channel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PasswordGeneratorThreadWrapper.h">
+      <Filter>Header Files\ThreadWrappersHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="Barrier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PasswordCracker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FunctionTimer.h">
+      <Filter>Header Files\FunctionTimerHeader</Filter>
     </ClInclude>
     <ClInclude Include="TimingData.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FunctionTimerHeader</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Channel.tpp">
+      <Filter>Template Files</Filter>
+    </None>
+    <None Include="TimingDataGlobal.tpp">
+      <Filter>Source Files\FunctionTimerTemplateSource</Filter>
+    </None>
+    <None Include="TimingDataMember.tpp">
+      <Filter>Source Files\FunctionTimerTemplateSource</Filter>
+    </None>
   </ItemGroup>
 </Project>

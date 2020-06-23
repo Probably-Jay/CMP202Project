@@ -1,301 +1,268 @@
 #include "FunctionTimer.h"
 #include <iostream>
 #include <thread>
+#include <string>
 
+#include "PasswordCracker.h"
+
+
+#include <mutex>
+
+#include <thread>
+
+#include <chrono>
+#include <functional>
+#include <array>
+
+
+using std::lock;
+using std::thread;
+using std::mutex;
 using std::cout;
 using std::endl;
-using std::vector;
-std::map<char, char> character = {
-	{NULL,'a'},
-	{'a','b'},
-	{'b','c'},
-	{'c','d'},
-	{'d','e'},
-	{'e','f'},
-	{'f','g'},
-	{'g','h'},
-	{'h','i'},
-	{'i','j'},
-	{'j','k'},
-	{'k','l'},
-	{'l','m'},
-	{'m','n'},
-	{'n','o'},
-	{'o','p'},
-	{'p','q'},
-	{'q','r'},
-	{'r','t'},
-	{'s','s'},
-	{'t','v'},
-	{'u','u'},
-	{'v','w'},
-	{'w','x'},
-	{'x','y'},
-	{'y','z'},
-	{'z','A'},
-	{'A','B'},
-	{'B','C'},
-	{'C','D'},
-	{'D','E'},
-	{'E','F'},
-	{'F','G'},
-	{'G','H'},
-	{'H','I'},
-	{'I','J'},
-	{'J','K'},
-	{'K','L'},
-	{'L','M'},
-	{'M','N'},
-	{'N','O'},
-	{'O','P'},
-	{'P','Q'},
-	{'Q','R'},
-	{'R','S'},
-	{'S','T'},
-	{'T','U'},
-	{'U','V'},
-	{'V','W'},
-	{'W','X'},
-	{'X','Y'},
-	{'Y','Z'},
-	{'Z','0'},
-	{'0','1'},
-	{'1','2'},
-	{'2','3'},
-	{'3','4'},
-	{'4','5'},
-	{'5','6'},
-	{'6','7'},
-	{'7','8'},
-	{'8','9'},
-	{'9','"'},
-	{'"','#'},
-	{'#','$'},
-	{'$','&'},
-	{'&','\''},
-	{'\'','\\'},
-	{'\\','('},
-	{'(',')'},
-	{')','*'},
-	{'*','+'},
-	{'+',','},
-	{',','-'},
-	{'-','.'},
-	{'.','/'},
-	{'/',':'},
-	{':',';'},
-	{';','<'},
-	{'<','='},
-	{'=','>'},
-	{'>','?'},
-	{'?','@'},
-	{'@','['},
-	{'[',']'},
-	{']','^'},
-	{'^','_'},
-	{'_','`'},
-	{'`','{'},
-	{'{','|'},
-	{'|','}'},
-	{'}','~'},
-	{'~',NULL}/*,
-	{' ','£'},
-	{'£',NULL},*/
-};
-
-#define MAX_ATTEMPTS 1000000
-#define MAX_LENGTH 20
-
-
-string PASSWORD;
-int passwordLength;
-
-vector<vector<char>> characterRange;
-vector<char> lowercase = { 'a','z' };
-vector<char> upercase = { 'A','Z'};
-vector<char> numbers = { '0','9' };
-vector<char> all_including_special = { ' ','~' };
-int CURRENTINDEX = 0;
-const bool DEBUG = false;
-
-void AddOne(string& s, int offset = 0) {
-	
-	int CURRENTCHARTYPE = 0;
-	for (int i = 0; i < characterRange.size(); i++) {
-		if (s[offset] >= characterRange[i][0] && s[offset] <= characterRange[i][1]) {
-			CURRENTCHARTYPE = i;
-		}
-	}
-	if (offset == s.size()) {
-		s.push_back(characterRange[0][0]);
-		return;
-	}
-	char n = ++s[offset];
-	if (n <= characterRange[CURRENTCHARTYPE][1]) {
-		s[offset] = n;
-		return;
-	}
-	else {
-		if (CURRENTCHARTYPE < characterRange.size() - 1) {
-			CURRENTCHARTYPE++;
-			s[offset] = characterRange[CURRENTCHARTYPE][0];
-		}
-		else {
-			CURRENTCHARTYPE = 0;
-			s[offset] = characterRange[0][0];
-			AddOne(s, ++offset);
-		}
-	}
-}
+using std::hash;
+using std::string;
+using std::array;
 
 
 
-void BruteForce() {
-	string guess = "";
-	guess += characterRange[0][0];
-		while (guess != PASSWORD)
-		{  
-			AddOne(guess);
-		}
-		if (guess == PASSWORD) {
-			
-			return;
-		}
-}
+Channel<int> chan(3);
+
+mutex coutMutex;
 
 
-int main() {
-	srand((unsigned)time(NULL));
-	FunctionTimer timer;
-	PASSWORD = "";
-	for (int i = 1; i < 6; i++) {
-	
-		PASSWORD += "j";
-		int itterations;
-		itterations = 10;
+string currentPasswordRoot = "";
 
-		cout << endl << "Lenght: " + to_string(i) << " password " << PASSWORD << " itterations " << to_string(itterations)<< endl;
-
-		
-		characterRange.clear();
-
-		characterRange.push_back(lowercase);
-		cout<< "lowercase " + to_string(i) << endl;
-		timer.NewTiming("lowerCase-"+to_string(i)+'_', BruteForce, itterations);
-		
-
-		cout << "uppercase " + to_string(i) << endl;
-		characterRange.push_back(upercase);
-		timer.NewTiming("upperCase-" + to_string(i) + '_', BruteForce, itterations);
-
-		cout << "numerical " + to_string(i) << endl;
-		characterRange.push_back(numbers);
-		timer.NewTiming("numbers-" + to_string(i) + '_', BruteForce, itterations);
-	
-		cout << "special " + to_string(i) << endl;
-		characterRange.clear();
-		characterRange.push_back(all_including_special);
-		timer.NewTiming("spec-" + to_string(i) + '_', BruteForce, itterations);
-	
-
-		characterRange.clear();
-	}
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const int WIDTH = 1920;
-const int HEIGHT = 1200;
-//
-//// The image data.
-//// Each pixel is represented as 0xRRGGBB.
-//uint32_t image[HEIGHT][WIDTH];
-//
-//void test() {
-//	//cout << "hello" << endl;
-//	int i = 1;
-//	int j = 2;
-//	float k = 0.25f * i + 0.75f + j;
-//}
-//
-//
-//
-//void write_tga(const char* filename)
+//void UpdatePasswordRoot()
 //{
-//	ofstream outfile(filename, ofstream::binary);
 //
-//	uint8_t header[18] = {
-//		0, // no image ID
-//		0, // no colour map
-//		2, // uncompressed 24-bit image
-//		0, 0, 0, 0, 0, // empty colour map specification
-//		0, 0, // X origin
-//		0, 0, // Y origin
-//		WIDTH & 0xFF, (WIDTH >> 8) & 0xFF, // width
-//		HEIGHT & 0xFF, (HEIGHT >> 8) & 0xFF, // height
-//		24, // bits per pixel
-//		0, // image descriptor
-//	};
-//	outfile.write((const char*)header, 18);
 //
-//	for (int y = 0; y < HEIGHT; ++y)
-//	{
-//		for (int x = 0; x < WIDTH; ++x)
-//		{
-//			uint8_t pixel[3] = {
-//				image[y][x] & 0xFF, // blue channel
-//				(image[y][x] >> 8) & 0xFF, // green channel
-//				(image[y][x] >> 16) & 0xFF, // red channel
-//			};
-//			outfile.write((const char*)pixel, 3);
+//	int len = currentPasswordRoot.length();
+//
+//	if (len == 0) {
+//		currentPasswordRoot = MINCHAR;
+//		return;
+//	}
+//	int end = len - 1;
+//
+//	for (int i = end; i >= 0; i--) { // for each letter in root, starting at far right
+//		if (currentPasswordRoot[i] < MAXCHAR) {  // if letter is less than max
+//
+//			currentPasswordRoot = currentPasswordRoot.substr(0, i) + (char)(currentPasswordRoot[i] + 1) + currentPasswordRoot.substr(i + 1, end - i);
+//
+//			return;
 //		}
-//	}
+//		else {
+//			currentPasswordRoot[i] = MINCHAR; // set that letter to the start
 //
-//	outfile.close();
-//	if (!outfile)
-//	{
-//		// An error has occurred at some point since we opened the file.
-//		cout << "Error writing to " << filename << endl;
-//		exit(1);
-//	}
+//		}
+//	} // we have reached the begining of the root and not yet returned
+//	currentPasswordRoot = MINCHAR + currentPasswordRoot;
+//
+//
+//
+//
 //}
+
+
+
+
 
 //int main() {
-//	//FunctionTimer timer;
-//	//timer.NewTiming("test", test, 10000, true);
+//	for (size_t i = 0; i < 1; i++)
+//	{
+//		auto beginTime = high_resolution_clock::now();
 //
 //
-//	//for (int y = HEIGHT/2.f; y >0 ; y--) {
-//	for (int y = HEIGHT/2.f; y >0 ; y--) {
-//		for (int x = 0; x < WIDTH /2.f; x++) {
-//			image[y][x] = 0xFFFFFFFF;
-//		}
+//		PasswordCracker cracker;
+//
+//		string password = "~ss";
+//
+//		size_t hashedPassword = hash<string>{}(password);
+//
+//		//cout << "looking for: \"" << password << "\", hash: " << hashedPassword << endl;
+//		string foundPassword = cracker.CrackPassword(hashedPassword);
+//
+//		auto endTime = high_resolution_clock::now();
+//		auto elapsedTime = duration_cast<duration<double>>(endTime - beginTime);
+//		auto time = (elapsedTime.count());
+//
+//
+//		cout << time << endl;
 //	}
-//	write_tga("output.tga");
-//	
 //
 //
 //}
 
 
+
+class fish {
+public:
+	void hoo() {
+		cout << "hoo" << endl;
+	}
+};
+
+int main() {
+	FunctionTimer ft;
+	PasswordCracker crac{  };
+	//crac.targetHash = hash<string>{}("hgew");
+	//char c = ' ';
+	//crac.generatorThreads.push_back(new PasswordGeneratorThreadWrapper{ &crac.passwordTextOutChannel,&crac.generationBarrier,' ','~' });
+	//Channel<PasswordCracker::PasswordHashPair>* chan;// = new Channel<PasswordCracker::PasswordHashPair>{};
+	//Channel<string>* chan;
+	{
+		const int itt = 50000;
+		const int rep = 50000;
+
+		//ft.RunNewTiming<Channel<string>, void, string >("Write string1 ", &Channel<string>::Write, chan, itt, rep, string{ "febsu"});
+		//ft.RunNewTiming<Channel<string>, void, string >("Write string2 ", &Channel<string>::Write, chan, itt, rep, string{ "febsu"});
+		//ft.RunNewTiming<Channel<string>, void, string >("Write string4 ", &Channel<string>::Write, chan, itt, rep, string{ "febsu"});
+
+
+		//ft.RunNewTiming<PasswordCracker>("comp whole 1 ",&PasswordCracker::CompareHashToTarget, &crac, itt,rep);
+
+		cout << crac.CrackPassword(hash<string>{}("huwi")) << endl;
+
+
+
+		/*ft.RunNewTiming<PasswordGeneratorThreadWrapper, bool, char&>("generation in work ", &PasswordGeneratorThreadWrapper::addOne, (crac.generatorThreads[0]), itt, rep, c);
+		ft.RunNewTiming<PasswordCracker>("generation out work", &PasswordCracker::UpdatePasswordRootAndSeg, &crac, itt, rep);
+
+		ft.RunNewTiming<PasswordCracker>("hash work ", &PasswordCracker::PerformHash, &crac, itt, rep);
+
+
+		ft.RunNewTiming<PasswordCracker>("comparison work", &PasswordCracker::CompareHashToTarget, &crac, itt, rep);*/
+
+		//	ft.RunNewTiming<PasswordGeneratorThreadWrapper, bool, char&>("generation in work + write ", &PasswordGeneratorThreadWrapper::addOne, (crac.generatorThreads[0]), itt, rep, c);
+		//
+		//	ft.RunNewTiming<PasswordCracker>("hash work + readWrite", &PasswordCracker::PerformHash, &crac, itt, rep);
+		//
+		//	ft.RunNewTiming<PasswordCracker>("comparison work", &PasswordCracker::CompareHashToTarget, &crac, itt, rep);
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 
+//int main() {
+//	FunctionTimer ft;
+//	PasswordCracker crac{  };
+//
+//	//char c = ' ';
+//
+//	string currentPasswordRoot = "";
+//
+//	const int itt = 50000;
+//	const int rep = 50000;
+//
+//	crac.currentPasswordRoot = "";
+//	crac.generatorThreads.push_back(new PasswordGeneratorThreadWrapper{&crac.passwordTextOutChannel,&crac.generationBarrier,' ','~'});
+//
+//	//ft.RunNewTiming<PasswordCracker>("genUPdWHole", &PasswordCracker::UpdatePasswordRootAndSeg, &crac, itt, rep);
+//
+//	//ft.RunNewTiming<void, vector<PasswordGeneratorThreadWrapper* >>("genSegWork", (FT::lambdacast<void, vector<PasswordGeneratorThreadWrapper* >>)[](vector<PasswordGeneratorThreadWrapper* > generatorThreads) {
+//
+//	//	int numberOfCharacters = ('~' - ' ') + 1; // "a-z" + "A-Z" + "0-9" + " !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~" - continuous chars from ' ' to '~'
+//
+//	//	int aproxWorkPerThread = ceil((float)numberOfCharacters / (float)1);
+//
+//	//	for (int i = 0; i < 1; i++) {
+//	//		char max = (char)(' ' + ((i + 1) * aproxWorkPerThread));
+//	//		generatorThreads[i]->SetSegments("heua", (char)(' ' + (i * aproxWorkPerThread)), max);
+//	//	}
+//
+//
+//	//	}, itt, rep, gt);
+//
+//
+//
+//	//ft.RunNewTiming<PasswordCracker,string,size_t>("whole", &PasswordCracker::CrackPassword, &crac, itt, rep, hash<string>{}("gko"));
+//
+//	
+//	//ft.RunNewTiming<bool, char&>("genInWork", (FT::lambdacast<bool, char&>)[](char& c) {if (c < '~') { // if less than the end of this thread's segment
+//	//	c++;
+//	//	return true; // we still have more to add
+//	//}
+//	//else {
+//	//	c = ' ';
+//	//	return false; // we have finished this segment
+//	//}},itt,rep,c);
+//
+//	//int curRep = 0;
+//
+//	//ft.RunNewTiming<void, string&>("genRootUpWork", (FT::lambdacast<void, string&>)[]( string & currentPasswordRoot)
+//	//{
+//	//		const int len = currentPasswordRoot.length();
+//
+//
+//	//		for (int i = len - 1; i >= 0; i--) { // for each letter in root, starting at far right
+//	//			if (currentPasswordRoot[i] < '~') {  // if letter is less than max
+//	//				currentPasswordRoot = currentPasswordRoot.substr(0, i) + (char)(currentPasswordRoot[i] + 1) + currentPasswordRoot.substr(i + (int)1, len - 1 - (int)i);
+//
+//	//				return;
+//	//			}
+//	//			else {
+//	//				currentPasswordRoot[i] = MINCHAR; // set that letter to the start
+//
+//	//			}
+//	//		} // we have reached the begining of the root and not yet returned
+//	//		currentPasswordRoot = MINCHAR + currentPasswordRoot;
+//
+//	//		/*if (count % 50000 == 0) {
+//	//			currentPasswordRoot = "";
+//	//		}
+//	//		count++;*/
+//	//	
+//	//},itt,rep,currentPasswordRoot);
+//
+//
+//
+//
+//	/*
+//	string words[10] = { "ghdtsb","at4ew","e4g4ej","esttdj","brdbt","aggre","ghrbj","ehtdtj","dthe", "fhhtd52"};
+//
+//	for (int i = 0; i < itt * rep / 10; i++ ){
+//		for (int j = 0; j < 10;j++) {
+//			crac.plainTextPasswordGuessChannel.Write(words[j]);
+//
+//		}
+//	}
+//	*/
+//	
+//	//ft.RunNewTiming<PasswordCracker>("cracFromPc2", &PasswordCracker::PerformHash, &crac, itt, rep);
+//
+//
+//	//crac.generatorThreads.push_back(new PasswordGeneratorThreadWrapper(&crac.plainTextPasswordGuessChannel, &crac.generationBarrier, ' ', '~'));
+//	
+//	/*ft.RunNewTiming<PasswordCracker>("upt", &PasswordCracker::UpdatePasswordRoot, &crac, itt, rep);
+//	
+//	ft.RunNewTiming<PasswordCracker>("seg", &PasswordCracker::SegmentPossiblePasswordGuesses, &crac, itt, rep);
+//	
+//	ft.RunNewTiming<PasswordGeneratorThreadWrapper, bool, char&>("thrd", &PasswordGeneratorThreadWrapper::addOne, &pw, itt, rep,c);
+//	
+//	ft.RunNewTiming<PasswordCracker>("whole crac", &PasswordCracker::PerformHash, &crac, itt, rep);
+//	
+//	ft.RunNewTiming<PasswordCracker>("whole comp", &PasswordCracker::CompareHashToTarget, &crac, itt, rep);
+//	*/
+//
+//}
 

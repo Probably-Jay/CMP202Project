@@ -7,22 +7,26 @@ FunctionTimer::FunctionTimer()
 
 FunctionTimer::~FunctionTimer()
 {
+	lock_guard<mutex> lk(timingsMutex);
 	timings.clear(); // this calls the destructor of each element;
 }
 
-TimingData * FunctionTimer::NewTiming(string name, void(*function)(),int iterations, bool consoleOut)
+
+
+TimingData* FunctionTimer::CreateManualTiming(string name)
 {
-	timings[name] = new TimingData(name, function, iterations, consoleOut);
-	timings[name]->RunTiming();
-	timings[name]->CalculateMedianTime();
-	timings[name]->Close();
+	lock_guard<mutex> lk(timingsMutex);
+	return timings[name] = new TimingData(name);
+}
+
+
+
+TimingData* FunctionTimer::GetTiming(string name)
+{
 	return timings[name];
 }
 
-double FunctionTimer::CalculateMedianTime(string name)
-{
-	return timings[name]->CalculateMedianTime();
-}
+
 
 
 
