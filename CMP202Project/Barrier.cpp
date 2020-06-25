@@ -30,9 +30,8 @@ void Barrier::UnblockAll()
 
 void Barrier::UnblockAllAndDisable()
 {
+	std::unique_lock<std::mutex> lock(mtx); // mutex to let any thread mid-arrival finish that execution
 	enabled = false;
-
 	barrierUseCount++;
-
 	cv.notify_all();
 }

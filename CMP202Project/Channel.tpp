@@ -12,15 +12,6 @@ Channel<T>::Channel(int _max)
 {
 }
 
-//template<class T>
-//Channel<T>::Channel(const Channel & c)
-//	: maxSize(c.maxSize)
-//	, sem(c.sem)
-//	, emptySem(c.emptySem)
-//	, enabled(c.enabled)
-//{
-//}
-
 
 template<class T>
 Channel<T>::~Channel()
@@ -29,15 +20,6 @@ Channel<T>::~Channel()
 	buffer.clear();
 }
 
-//template<class T>
-//Channel<T>& Channel<T>::operator=(const Channel& c)
-//{
-//	maxSize = c.maxSize;
-//	sem = c.sem;
-//	emptySem = c.emptySem;
-//	enabled = c.enabled;
-//	return *this;
-//}
 
 template<class T>
 void Channel<T>::Write(T data)
@@ -51,16 +33,15 @@ void Channel<T>::Write(T data)
 
 }
 
-
 template<class T>
 T Channel<T>::Read()
 {
 	sem.Wait(); // block and suspend unless there are available elements in the buffer
-	if (!enabled) return T(); // if channel has been decommissioned, prevent reading empty buffer
-	lock_guard<mutex> lock(mtx);
+	if (!enabled) return T{}; // if channel has been decommissioned, unblock but prevent reading empty buffer
+	lock_guard<mutex> lock(mtx); // RAII mutex for readind and altering the buffer
 	T item = buffer.back();
-	buffer.pop_back();
-	emptySem.Signal();
+	buffer.pop_back(); // remove read item from buffer 
+	emptySem.Signal(); // signal that there is now extra room in the buffer
 	return item;
 }
 

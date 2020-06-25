@@ -122,7 +122,11 @@ int main() {
 
 		//ft.RunNewTiming<PasswordCracker>("comp whole 1 ",&PasswordCracker::CompareHashToTarget, &crac, itt,rep);
 
-		cout << crac.CrackPassword(hash<string>{}("huwi")) << endl;
+		string password = "pas";
+		auto leakedHash = hash<string>{}(password);
+		auto foundPassword = crac.CrackPassword(leakedHash);
+		cout << foundPassword << endl;
+		
 
 
 

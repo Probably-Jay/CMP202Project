@@ -16,7 +16,8 @@ public:
 	PasswordGeneratorThreadWrapper(Channel<std::string>* _passwordChannel, Barrier*_barrier, char _minChar, char _maxChar);
 
 	~PasswordGeneratorThreadWrapper();
-	void SetSegments(string _prev, char _segMin, char _segMax);
+	void SetSegments(char _segMin, char _segMax);
+	void UpdateRoot(string _root);
 	void Begin();
 	void Finish();
 
@@ -31,7 +32,7 @@ public:
 	char segMax;
 	
 	char currentChar;
-	string prevString;
+	string passwordRoot;
 
 	Channel<std::string>* passwordChannel;
 	Barrier* barrier;
