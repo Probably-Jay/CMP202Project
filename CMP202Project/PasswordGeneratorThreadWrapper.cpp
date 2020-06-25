@@ -22,12 +22,17 @@ PasswordGeneratorThreadWrapper::~PasswordGeneratorThreadWrapper()
 	
 }
 
-void PasswordGeneratorThreadWrapper::SetSegments(string _prev,char _segMin, char _segMax)
+void PasswordGeneratorThreadWrapper::SetSegments(char _segMin, char _segMax)
 {
 	segMin = _segMin;
 	segMax = _segMax <= maxChar ? _segMax : maxChar; // the last segment given will be smaller than the rest if the number of threads is not a divisor of the segment size
-	prevString = _prev;
 	currentChar = segMin -1;
+}
+
+void PasswordGeneratorThreadWrapper::UpdateRoot(string _root)
+{
+	passwordRoot = _root;
+	currentChar = segMin - 1;
 }
 
 void PasswordGeneratorThreadWrapper::Begin()
@@ -42,7 +47,6 @@ void PasswordGeneratorThreadWrapper::Finish() // will end thread after its curre
 	barrier->UnblockAllAndDisable(); // in case threads are stuck at barrier
 	if(thisThread){
 	if(thisThread->joinable())
-		//barrier->UnblockAll(); // in case threads are stuck at barrier double check
 		thisThread->join();
 	delete thisThread;
 	thisThread = nullptr;}
@@ -52,11 +56,11 @@ inline bool PasswordGeneratorThreadWrapper::addOne(char& c)
 {
 	if (c < segMax) { // if less than the end of this thread's segment
 		c++;
-		passwordChannel->Write(prevString + currentChar);
+		passwordChannel->Write(passwordRoot + currentChar);
 		return true; // we still have more to add
 	}
 	else {
-		passwordChannel->Write(prevString + currentChar);
+		passwordChannel->Write(passwordRoot + currentChar);
 		c = segMin;
 		return false; // we have finished this segment
 	}
@@ -72,15 +76,14 @@ void PasswordGeneratorThreadWrapper::GeneratePassword()
 		barrier->ArriveAndWait(); // wait for segment to be updated, last wait called from main thread passes barrier
 		while (threadRunning)
 		{
-			bool stillWithinSegment = addOne(currentChar);
+			bool stillWithinSegment = addOne(currentChar); // add one to current char, return if still within segment
 
 			if (stillWithinSegment) { // not passed end of segment
-				passwordChannel->Write(prevString + currentChar);
-				//cout << prevString + currentChar << endl;
+				passwordChannel->Write(passwordRoot + currentChar);
 
 			}
 			else {
-				barrier->ArriveAndWait(); // wait for the rest of the threads to finish
+				barrier->ArriveAndWait(); // wait for the rest of the threads to finish, signal to update root
 
 				break; // break and wait again for seg to be updated
 			}

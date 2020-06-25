@@ -77,11 +77,11 @@
     <ClInclude Include="TimingData.h">
       <Filter>Header Files\FunctionTimerHeader</Filter>
     </ClInclude>
+    <ClInclude Include="Channel.tpp">
+      <Filter>Template Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Channel.tpp">
-      <Filter>Template Files</Filter>
-    </None>
     <None Include="TimingDataGlobal.tpp">
       <Filter>Source Files\FunctionTimerTemplateSource</Filter>
     </None>

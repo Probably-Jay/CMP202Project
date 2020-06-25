@@ -112,18 +112,19 @@ int main() {
 	//Channel<PasswordCracker::PasswordHashPair>* chan;// = new Channel<PasswordCracker::PasswordHashPair>{};
 	//Channel<string>* chan;
 	{
-		const int itt = 1000;
-		const int rep = 5;
+		const int itt = 50000;
+		const int rep = 50000;
 
 		//ft.RunNewTiming<Channel<string>, void, string >("Write string1 ", &Channel<string>::Write, chan, itt, rep, string{ "febsu"});
 		//ft.RunNewTiming<Channel<string>, void, string >("Write string2 ", &Channel<string>::Write, chan, itt, rep, string{ "febsu"});
 		//ft.RunNewTiming<Channel<string>, void, string >("Write string4 ", &Channel<string>::Write, chan, itt, rep, string{ "febsu"});
+
+
+		//ft.RunNewTiming<PasswordCracker>("comp whole 1 ",&PasswordCracker::CompareHashToTarget, &crac, itt,rep);
 		
+		cout << crac.CrackPassword(hash<string>{}("huwi"))<< endl;
 		
-		//ft.RunNewTiming<PasswordCracker>("comp whole 1 ",&PasswordCracker::CrackPassword, &crac, itt,rep, );
-		
-		//cout << crac.CrackPassword(hash<string>{}("huwi"))<< endl;
-		
+
 
 
 		/*ft.RunNewTiming<PasswordGeneratorThreadWrapper, bool, char&>("generation in work ", &PasswordGeneratorThreadWrapper::addOne, (crac.generatorThreads[0]), itt, rep, c);
@@ -131,23 +132,37 @@ int main() {
 
 		ft.RunNewTiming<PasswordCracker>("hash work ", &PasswordCracker::PerformHash, &crac, itt, rep);
 
+
 		ft.RunNewTiming<PasswordCracker>("comparison work", &PasswordCracker::CompareHashToTarget, &crac, itt, rep);*/
 
-	//	ft.RunNewTiming<PasswordGeneratorThreadWrapper, bool, char&>("generation in work + write ", &PasswordGeneratorThreadWrapper::addOne, (crac.generatorThreads[0]), itt, rep, c);
-	//
-	//	ft.RunNewTiming<PasswordCracker>("hash work + readWrite", &PasswordCracker::PerformHash, &crac, itt, rep);
-	//
-	//	ft.RunNewTiming<PasswordCracker>("comparison work", &PasswordCracker::CompareHashToTarget, &crac, itt, rep);
-
-
-	}
-	{
-		
-
-
+		//	ft.RunNewTiming<PasswordGeneratorThreadWrapper, bool, char&>("generation in work + write ", &PasswordGeneratorThreadWrapper::addOne, (crac.generatorThreads[0]), itt, rep, c);
+		//
+		//	ft.RunNewTiming<PasswordCracker>("hash work + readWrite", &PasswordCracker::PerformHash, &crac, itt, rep);
+		//
+		//	ft.RunNewTiming<PasswordCracker>("comparison work", &PasswordCracker::CompareHashToTarget, &crac, itt, rep);
 
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 
 //int main() {
 //	FunctionTimer ft;
@@ -251,3 +266,4 @@ int main() {
 //	*/
 //
 //}
+

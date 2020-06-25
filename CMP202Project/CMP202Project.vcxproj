@@ -141,9 +141,9 @@
     <ClInclude Include="TimingData.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Channel.tpp">
+    <ClInclude Include="Channel.tpp">
       <FileType>Document</FileType>
-    </None>
+    </ClInclude>
     <None Include="TimingDataGlobal.tpp" />
     <None Include="TimingDataMember.tpp" />
   </ItemGroup>

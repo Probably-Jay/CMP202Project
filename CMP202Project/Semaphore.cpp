@@ -32,7 +32,7 @@ void Semaphore::Wait()
 	return;
 }
 
-void Semaphore::Disable()
+void Semaphore::Disable() // unblock any blocked threads at the end of this objects life
 {
 	poolCount = std::numeric_limits<int>::max() *0.7f; // a really big number
 	cv.notify_all();
@@ -40,7 +40,7 @@ void Semaphore::Disable()
 
 void Semaphore::Reset(int _initial)
 {
-	Disable();
+	Disable(); // clear it out
 	poolCount = _initial;
 	cv.notify_all();
 }

@@ -62,6 +62,7 @@ private:
 	void GeneratePasswordGuesses(int _numberOfGeneratorThreads);
 	void SegmentPossiblePasswordGuesses();
 	void UpdatePasswordRoot();
+	inline void UpdateGeneratorThreads();
 
 	// hashing
 	void PerformHash();
@@ -95,13 +96,13 @@ private:
 	// member variables
 	size_t targetHash;
 	string foundPassword;
-
-	/*bool searching = false;
-	mutex searchingMutex;*/
+ 
 
 	const int numberOfGeneratorThreads;
 	const int numberOfHashingThreads;
 	const int numberOfComparisonThreads;
+
+
 
 	//const PasswordComplexity passwordComplexity;
 

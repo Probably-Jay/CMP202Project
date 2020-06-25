@@ -1,2 +1,4 @@
 ﻿  Source.cpp
+D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\Source.cpp(125,20): warning C4018: '<': signed/unsigned mismatch
+D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\CMP202Project\Source.cpp(143,23): warning C4018: '<': signed/unsigned mismatch
   CMP202Project.vcxproj -> D:\MyDocuments\Uni19-20\Cmp 202 Algorithms 2\Project\CMP202Project\Debug\CMP202Project.exe
