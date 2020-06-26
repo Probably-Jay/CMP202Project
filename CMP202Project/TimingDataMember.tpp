@@ -17,8 +17,6 @@ void TimingDataMember<T_caller, T_ret, T_param ...>::RunFunctionTiming(const int
 	TryOpen();
 	for (int i = 0; i < iterations; i++) {
 		
-		
-	
 
 		beginTime = high_resolution_clock::now();
 
