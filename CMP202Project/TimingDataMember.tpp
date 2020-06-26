@@ -18,12 +18,7 @@ void TimingDataMember<T_caller, T_ret, T_param ...>::RunFunctionTiming(const int
 	for (int i = 0; i < iterations; i++) {
 		
 		
-		
-		for (int j = 0; j < repititions; j++) {
-			//dynamic_cast<PasswordCracker>(caller)->hashChannel.Write(PasswordCracker::PasswordHashPair{ "gesfes",48646 });
-			//dynamic_cast<PasswordCracker>(caller)->passwordTextOutChannel.Write("geses");
-			dynamic_cast<PasswordCracker*>(caller)->hashChannel.Write(PasswordCracker::PasswordHashPair{ "gesfes",486456 });
-		}
+	
 
 		beginTime = high_resolution_clock::now();
 
@@ -36,7 +31,6 @@ void TimingDataMember<T_caller, T_ret, T_param ...>::RunFunctionTiming(const int
 
 		endTime = high_resolution_clock::now();
 		
-		//dynamic_cast<PasswordCracker* > (caller)->hashChannel.Clear();
 
 		elapsedTime = duration_cast<duration<long double>>(endTime - beginTime);
 		timings.push_back(elapsedTime.count());

@@ -28,30 +28,20 @@ PasswordCracker::~PasswordCracker()
 	for (auto& t : generatorThreads) {
 		delete t;
 	}
+	generatorThreads.clear();
+
 }
 
 
 string PasswordCracker::CrackPassword(std::size_t _hash)
 {
+	
+	
+
 	targetHash = _hash;
 	active = true;
 
-	//char c = ' ';
-	//if(doGen % 95 == 0)
-	//	GeneratePasswordGuesses(0);
-	//pw.addOne(c);
-	//doGen++;
-	//PerformHash();
-	//CompareHashToTarget();
-
-	//generationMainTimingFull = functionTimer.CreateManualTiming("GenerationMain_Full_");
-	////generationTimingMainWorkOnly = functionTimer.CreateManualTiming("GenerationMain_Work_");
-	//
-	//hashingTimingFull = functionTimer.CreateManualTiming("Hashing_Full_");
-	////hashingTimingWorkOnly = functionTimer.CreateManualTiming("Hashing_Work_");
-	//
-	//comparisonTimingFull = functionTimer.CreateManualTiming("Comparison_Full_");
-	/////comparisonTimingWorkOnly = functionTimer.CreateManualTiming("Comparison_Work_");
+	
 
 	BeginThreads(waitForEndThread, &PasswordCracker::WaitForEndOfSearch); // thread will wait until password has been found
 	
@@ -63,9 +53,6 @@ string PasswordCracker::CrackPassword(std::size_t _hash)
 
 	JoinThreads(waitForEndThread); // main thread will wait here for end of search
 
-	//generationMainTimingFull->EndTiming();
-	//hashingTimingFull->EndTiming();
-	//comparisonTimingFull->EndTiming();
 
 	// cleanup threads
 	JoinThreads(mainGeneratorThread);
@@ -73,6 +60,7 @@ string PasswordCracker::CrackPassword(std::size_t _hash)
 	JoinThreads(comparisonThreads);
 
 	//GeneratePasswordGuesses();
+	Reset();
 
 
 	return foundPassword;
@@ -80,6 +68,21 @@ string PasswordCracker::CrackPassword(std::size_t _hash)
 }
 
 
+
+void PasswordCracker::Reset()
+{
+	generationBarrier.Reset();
+	generatorThreads.clear();
+	plainTextPasswordGuessChannel.Reset();
+	hashChannel.Reset();
+	passwordTextOutChannel.Reset();
+
+	currentPasswordRoot = "";
+	mainGeneratorThread = nullptr;
+	waitForEndThread = nullptr;
+	foundPassword = "";
+
+}
 
 void PasswordCracker::GeneratePasswordGuesses(int _numberOfGeneratorThreads) // manages generator threads 
 {

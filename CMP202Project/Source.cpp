@@ -112,17 +112,19 @@ int main() {
 	//Channel<PasswordCracker::PasswordHashPair>* chan;// = new Channel<PasswordCracker::PasswordHashPair>{};
 	//Channel<string>* chan;
 	{
-		const int itt = 1000;
-		const int rep = 5;
+		const int itt = 100;
+		const int rep = 1;
 
-		//ft.RunNewTiming<Channel<string>, void, string >("Write string1 ", &Channel<string>::Write, chan, itt, rep, string{ "febsu"});
-		//ft.RunNewTiming<Channel<string>, void, string >("Write string2 ", &Channel<string>::Write, chan, itt, rep, string{ "febsu"});
-		//ft.RunNewTiming<Channel<string>, void, string >("Write string4 ", &Channel<string>::Write, chan, itt, rep, string{ "febsu"});
+		string pass = "";
+		int timings = 5;
+		//for (int i = 0; i < timings; i++) {
+			pass = "5555";
+			auto has = hash<string>{}(pass);
+			ft.RunNewTiming<PasswordCracker>("Crack-" + pass + "--", &PasswordCracker::CrackPassword, &crac, itt, rep, has);
+		//}
 		
-		
-		////ft.RunNewTiming<PasswordCracker>("comp whole 1 ",&PasswordCracker::CompareHashToTarget, &crac, itt,rep);
-		
-		cout << crac.CrackPassword(hash<string>{}("huwi"))<< endl;
+		//cout << crac.CrackPassword(hash<string>{}("i"))<< endl;
+		//cout << crac.CrackPassword(hash<string>{}("i"))<< endl;
 		
 
 

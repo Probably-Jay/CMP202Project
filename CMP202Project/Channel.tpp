@@ -37,8 +37,8 @@ template<class T>
 T Channel<T>::Read()
 {
 	sem.Wait(); // block and suspend unless there are available elements in the buffer
-	if (!enabled) return T{}; // if channel has been decommissioned, unblock but prevent reading empty buffer
 	lock_guard<mutex> lock(mtx); // RAII mutex for readind and altering the buffer
+	if (!enabled) return T{}; // if channel has been decommissioned, unblock but prevent reading empty buffer
 	T item = buffer.back();
 	buffer.pop_back(); // remove read item from buffer 
 	emptySem.Signal(); // signal that there is now extra room in the buffer
@@ -50,6 +50,7 @@ void Channel<T>::UnblockAllandDisable()
 {
 	if (enabled) {
 		enabled = false;
+		Clear();
 		sem.Disable();
 		emptySem.Disable();
 	}
@@ -58,7 +59,15 @@ void Channel<T>::UnblockAllandDisable()
 template<class T>
 void Channel<T>::Clear()
 {
+	lock_guard<mutex> lock(mtx);
 	buffer.clear();
 	sem.Reset();
-	emptySem.Reset(maxSize);
+	emptySem.Reset();
+}
+
+template<class T>
+void Channel<T>::Reset()
+{
+	Clear();
+	enabled = true;
 }
