@@ -115,12 +115,11 @@ int main() {
 		const int itt = 100;
 		const int rep = 1;
 
-		string pass = "";
 		int timings = 5;
 		//for (int i = 0; i < timings; i++) {
-			pass = "5555";
-			auto has = hash<string>{}(pass);
-			ft.RunNewTiming<PasswordCracker>("Crack-" + pass + "--", &PasswordCracker::CrackPassword, &crac, itt, rep, has);
+		string pass = "5555";
+		auto has = hash<string>{}(pass);
+		ft.RunNewTiming<PasswordCracker>("Crack-" + pass + "--", &PasswordCracker::CrackPassword, &crac, itt, rep, has);
 		//}
 		
 		//cout << crac.CrackPassword(hash<string>{}("i"))<< endl;

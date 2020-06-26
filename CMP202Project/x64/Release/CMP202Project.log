@@ -18,7 +18,7 @@ C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Pro
               T_caller=PasswordCracker,
               T_ret=std::string
           ]
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\Source.cpp(123): message : see reference to function template instantiation 'TimingData *FunctionTimer::RunNewTiming<PasswordCracker,std::string,size_t>(std::string,T_ret (__cdecl PasswordCracker::* )(size_t),T_caller *,const int,const int,size_t)' being compiled
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\Source.cpp(122): message : see reference to function template instantiation 'TimingData *FunctionTimer::RunNewTiming<PasswordCracker,std::string,size_t>(std::string,T_ret (__cdecl PasswordCracker::* )(size_t),T_caller *,const int,const int,size_t)' being compiled
           with
           [
               T_ret=std::string,
@@ -26,8 +26,8 @@ C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Pro
           ]
 C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingDataMember.tpp(39,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Generating code
-  1 of 874 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  12 of 873 functions ( 1.4%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   CMP202Project.vcxproj -> C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\x64\Release\CMP202Project.exe
