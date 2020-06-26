@@ -104,16 +104,16 @@ public:
 };
 
 int main() {
-	FunctionTimer ft;
-	PasswordCracker crac{  };
-	//crac.targetHash = hash<string>{}("hgew");
+	FunctionTimer functionTimer;
+	PasswordCracker passwordCracker{  };
+	auto targetHash = hash<string>{}("hgew");
 	//char c = ' ';
 	//crac.generatorThreads.push_back(new PasswordGeneratorThreadWrapper{ &crac.passwordTextOutChannel,&crac.generationBarrier,' ','~' });
 	//Channel<PasswordCracker::PasswordHashPair>* chan;// = new Channel<PasswordCracker::PasswordHashPair>{};
 	//Channel<string>* chan;
 	{
-		const int itt = 50000;
-		const int rep = 50000;
+		const int itterations = 50000;
+		const int repititions = 50000;
 
 		//ft.RunNewTiming<Channel<string>, void, string >("Write string1 ", &Channel<string>::Write, chan, itt, rep, string{ "febsu"});
 		//ft.RunNewTiming<Channel<string>, void, string >("Write string2 ", &Channel<string>::Write, chan, itt, rep, string{ "febsu"});
@@ -122,9 +122,17 @@ int main() {
 
 		//ft.RunNewTiming<PasswordCracker>("comp whole 1 ",&PasswordCracker::CompareHashToTarget, &crac, itt,rep);
 		
-		cout << crac.CrackPassword(hash<string>{}("huwi"))<< endl;
+		cout << passwordCracker.CrackPassword(hash<string>{}("huwi"))<< endl;
 		
-
+		// runs timing:			  <caller type, return type, argument type(s)>
+		functionTimer.RunNewTiming<PasswordCracker, string, size_t>(
+			"Timing for full password cracking", // name for output file
+			&PasswordCracker::CrackPassword, // function to time
+			&passwordCracker, // pointer to object function is called on
+			itterations, // number of timings
+			repititions, // calls per timing
+			targetHash // arguments 
+			);
 
 
 		/*ft.RunNewTiming<PasswordGeneratorThreadWrapper, bool, char&>("generation in work ", &PasswordGeneratorThreadWrapper::addOne, (crac.generatorThreads[0]), itt, rep, c);

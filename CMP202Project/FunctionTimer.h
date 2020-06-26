@@ -57,7 +57,7 @@ private:
 
 };
 
-// global
+// timing for global/anonymous function
 template<class T_ret, class ... T_args>
 auto FunctionTimer::RunNewTiming(string name,  T_ret(*function)(T_args ...), const int iterations, const int repititions, T_args ... otherArgs)
 {
@@ -71,7 +71,7 @@ auto FunctionTimer::RunNewTiming(string name,  T_ret(*function)(T_args ...), con
 	return timings[name];
 }
 
-// member
+// timing for member function
 template<class T_caller, class T_ret, class ...T_args>
 auto FunctionTimer::RunNewTiming(string name, T_ret(T_caller::*function)(T_args...), T_caller* caller, const int iterations, const int repititions, T_args ...otherArgs)
 {
