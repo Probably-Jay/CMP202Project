@@ -9,6 +9,7 @@ public:
 	void ArriveAndWait();
 	void UnblockAll();
 	void UnblockAllAndDisable();
+	void Reset();
 
 private:
 

@@ -1,16 +1,17 @@
 #include "PasswordGeneratorThreadWrapper.h"
 
 
-PasswordGeneratorThreadWrapper::PasswordGeneratorThreadWrapper(Channel<std::string>* _passwordChannel,Barrier*_barrier, char _minChar, char _maxChar)
+PasswordGeneratorThreadWrapper::PasswordGeneratorThreadWrapper(Channel<std::string>* _passwordChannel, Barrier* _barrier, char _minChar, char _maxChar)
 	: passwordChannel(_passwordChannel)
 	, minChar(_minChar)
 	, maxChar(_maxChar)
 	, barrier(_barrier)
 	, segMin(NULL)
 	, segMax(NULL)
-	, currentChar(segMin-1)
+	, currentChar((char)(segMin - 1))
 	, threadRunning(false)
 	, thisThread(NULL)
+	, passwordRoot("")
 {
 }
 
@@ -45,23 +46,22 @@ void PasswordGeneratorThreadWrapper::Finish() // will end thread after its curre
 {
 	threadRunning = false;
 	barrier->UnblockAllAndDisable(); // in case threads are stuck at barrier
-	if(thisThread){
-	if(thisThread->joinable())
-		thisThread->join();
-	delete thisThread;
-	thisThread = nullptr;}
+	if (thisThread) {
+		if (thisThread->joinable())
+		{thisThread->join();}
+		delete thisThread;
+		thisThread = nullptr;
+	}
 }
 
 inline bool PasswordGeneratorThreadWrapper::addOne(char& c)
 {
 	if (c < segMax) { // if less than the end of this thread's segment
 		c++;
-		passwordChannel->Write(passwordRoot + currentChar);
 		return true; // we still have more to add
 	}
 	else {
-		passwordChannel->Write(passwordRoot + currentChar);
-		c = segMin;
+		c = (segMin-1);
 		return false; // we have finished this segment
 	}
 

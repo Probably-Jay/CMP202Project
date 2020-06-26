@@ -2,6 +2,7 @@
 
 Semaphore::Semaphore(int _initial)
 	:	poolCount((_initial>=0&&_initial<=INT_MAX-1)?_initial:0)
+	,	initialPoolSize(_initial)
 {
 
 }
@@ -34,13 +35,15 @@ void Semaphore::Wait()
 
 void Semaphore::Disable() // unblock any blocked threads at the end of this objects life
 {
-	poolCount = std::numeric_limits<int>::max() *0.7f; // a really big number
+	unique_lock<mutex> lock(poolMutex); // aquire mutex lock as required by condition variable, RAII
+	poolCount = Sem::reallyBigNumber;// a really big number
 	cv.notify_all();
 }
 
-void Semaphore::Reset(int _initial)
+void Semaphore::Reset()
 {
 	Disable(); // clear it out
-	poolCount = _initial;
+	unique_lock<mutex> lock(poolMutex);
+	poolCount = initialPoolSize;
 	cv.notify_all();
 }

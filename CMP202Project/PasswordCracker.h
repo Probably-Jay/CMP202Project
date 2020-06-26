@@ -23,7 +23,7 @@ using std::vector;
 constexpr auto MINCHAR = ' ';
 constexpr auto MAXCHAR = '~';
 
-constexpr auto DEFAULTMAXBUFFERSIZE = 10000;
+constexpr auto DEFAULTMAXBUFFERSIZE = 1000;
 constexpr auto DEFAULNUMBEROFGENERATORTHREADS = 1;
 constexpr auto DEFAULNUMBEROFHASHTHREADS = 1;
 constexpr auto DEFAULNUMBEROFCOMPARISONTHREADS = 1;
@@ -57,6 +57,7 @@ private:
 	bool active;
 
 	// private member funcitons
+	void Reset();
 
 	// password generation
 	void GeneratePasswordGuesses(int _numberOfGeneratorThreads);

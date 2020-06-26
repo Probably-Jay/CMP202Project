@@ -22,6 +22,8 @@ public:
 	void UnblockAllandDisable(); // called at destruction to unblock any possible threads still attempting to read / write
 
 	void Clear();
+
+	void Reset();
 private:
 
 	bool enabled;

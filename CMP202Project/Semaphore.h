@@ -11,6 +11,10 @@ using std::unique_lock;
 using std::mutex;
 using std::condition_variable;
 
+namespace Sem {
+	constexpr auto reallyBigNumber  = std::numeric_limits<int>::max() * 0.7f;
+}
+
 class Semaphore
 {
 public:
@@ -19,10 +23,11 @@ public:
 	void Signal(); // increment pool count, wake up a sleeping thread on wait
 	void Wait(); // suspend thread until pool count is greater than 0, decrement pool count
 	void Disable(); // called at destruction to unblock any possible threads still waiting on signal
-	void Reset(int _initial = 0);
+	void Reset();
 private:
 	mutex poolMutex;
 	condition_variable cv;
 	int poolCount;
+	const int initialPoolSize;
 };
 
