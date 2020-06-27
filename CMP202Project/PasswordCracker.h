@@ -25,7 +25,7 @@ constexpr auto MAXCHAR = '~';
 
 constexpr auto DEFAULTMAXBUFFERSIZE = 1000;
 constexpr auto DEFAULNUMBEROFGENERATORTHREADS = 1;
-constexpr auto DEFAULNUMBEROFHASHTHREADS = 2;
+constexpr auto DEFAULNUMBEROFHASHTHREADS = 1;
 constexpr auto DEFAULNUMBEROFCOMPARISONTHREADS = 1;
 
 class PasswordCracker
