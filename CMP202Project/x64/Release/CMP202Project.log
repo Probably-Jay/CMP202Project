@@ -1,5 +1,5 @@
 ﻿  Source.cpp
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingDataMember.tpp(39,39): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingDataMember.tpp(37,39): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
 C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingDataMember.tpp(15): message : while compiling class template member function 'void TimingDataMember<T_caller,T_ret,size_t>::RunFunctionTiming(const int,const int,T_caller *,size_t)'
           with
           [
@@ -24,10 +24,10 @@ C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Pro
               T_ret=std::string,
               T_caller=PasswordCracker
           ]
-C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingDataMember.tpp(39,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingDataMember.tpp(37,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Generating code
-  12 of 873 functions ( 1.4%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+  313 of 874 functions (35.8%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    70 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   CMP202Project.vcxproj -> C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\x64\Release\CMP202Project.exe
