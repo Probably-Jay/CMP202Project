@@ -116,7 +116,7 @@ int main() {
 		const int rep = 1;
 		string pass = "55555";
 		auto has = hash<string>{}(pass);
-		ft.RunNewTiming<PasswordCracker>("Crack-control-" + pass + "--", &PasswordCracker::CrackPassword, &crac, itt1, rep, has);
+		ft.RunNewTiming<PasswordCracker>("Crack-optimised-" + pass + "--", &PasswordCracker::CrackPassword, &crac, itt1, rep, has);
 
 		//cout << crac.CrackPassword(hash<string>{}("i"))<< endl;
 		//cout << crac.CrackPassword(hash<string>{}("i"))<< endl;
