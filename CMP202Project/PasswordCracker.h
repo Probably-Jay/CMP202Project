@@ -49,12 +49,7 @@ public:
 	string CrackPassword(std::size_t hash);
 
 
-	//void UpdatePasswordRootAndSeg();
-
-
-
 private:
-	bool active;
 
 	// private member funcitons
 	void Reset();
@@ -92,9 +87,10 @@ private:
 	vector<thread*> comparisonThreads;
 	thread*			waitForEndThread;
 
-	//mutex outMtx;
 
 	// member variables
+	bool active;
+
 	size_t targetHash;
 	string foundPassword;
  
@@ -103,9 +99,6 @@ private:
 	const int numberOfHashingThreads;
 	const int numberOfComparisonThreads;
 
-
-
-	//const PasswordComplexity passwordComplexity;
 
 	vector<PasswordGeneratorThreadWrapper*> generatorThreads;
 	Barrier generationBarrier; // for each character position wait for each thread to finish generating password attempt
@@ -116,10 +109,6 @@ private:
 	Channel<string> passwordTextOutChannel; // used only once if the correct password is found
 
 	string currentPasswordRoot;
-
-	
-
-	 
 
 
 };

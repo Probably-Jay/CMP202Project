@@ -35,13 +35,10 @@ PasswordCracker::~PasswordCracker()
 
 string PasswordCracker::CrackPassword(std::size_t _hash)
 {
-	
-	
 
 	targetHash = _hash;
 	active = true;
 
-	
 
 	BeginThreads(waitForEndThread, &PasswordCracker::WaitForEndOfSearch); // thread will wait until password has been found
 	
@@ -52,6 +49,7 @@ string PasswordCracker::CrackPassword(std::size_t _hash)
 
 
 	JoinThreads(waitForEndThread); // main thread will wait here for end of search
+
 
 
 	// cleanup threads

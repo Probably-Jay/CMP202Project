@@ -36,7 +36,7 @@ void Semaphore::Wait()
 void Semaphore::Disable() // unblock any blocked threads at the end of this objects life
 {
 	unique_lock<mutex> lock(poolMutex); // aquire mutex lock as required by condition variable, RAII
-	poolCount = Sem::reallyBigNumber;// a really big number
+	poolCount = poolCount< Sem::reallyBigNumber? Sem::reallyBigNumber : poolCount++;// a really big number
 	cv.notify_all();
 }
 

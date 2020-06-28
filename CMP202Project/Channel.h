@@ -13,9 +13,6 @@ public:
 	Channel<T>(int _max = -1); // sentinal value will set maxSize to max_size() of buffer
 	~Channel();
 
-	//Channel(const Channel &);
-	//Channel& operator=(const Channel& c);
-
 	void Write(T data); // add a value to the channel (if there is room) signal that a value has been added to wake up sleeping threads
 	T Read(); // try read a value from the channel, suspend execution until not empty
 

@@ -70,8 +70,6 @@ protected:
 	//inline void TryClose() {file.is_open() ? file.close() : void();}
 
 
-	
-
 	vector<double> timings;
 	float medianTiming;
 
@@ -110,7 +108,6 @@ private:
 
 
 
-
 };
 
 template<class T_caller, class T_ret, class ... T_param>
@@ -128,8 +125,6 @@ private:
 	T_ret(T_caller::*function)(T_param ...); // function that will be timed
 
 	inline void CallFunc(T_ret(T_caller::*func)(T_param ...), T_caller * caller,T_param ... params) { (caller->*func)(params ...); }; // calls function pointer
-
-
 
 
 };

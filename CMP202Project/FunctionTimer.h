@@ -39,8 +39,6 @@ public:
 
 
 
-
-
 	TimingData* GetTiming(string name);
 	
 	void ManualTimingStart(string name, int numberOfTimings = 1) { timings[name]->ManualTimingStart(numberOfTimings); };
@@ -48,8 +46,6 @@ public:
 	void ManualTimingEnd(string name) { timings[name]->EndTiming(); };
 
 																											 
-	//double CalculateMedianTime(string name);
-	
 
 private:
 	mutex timingsMutex;

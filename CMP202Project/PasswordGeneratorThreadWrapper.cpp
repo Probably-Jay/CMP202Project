@@ -20,7 +20,6 @@ PasswordGeneratorThreadWrapper::PasswordGeneratorThreadWrapper(Channel<std::stri
 PasswordGeneratorThreadWrapper::~PasswordGeneratorThreadWrapper()
 {
 	Finish();
-	
 }
 
 void PasswordGeneratorThreadWrapper::SetSegments(char _segMin, char _segMax)

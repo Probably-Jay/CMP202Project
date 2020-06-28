@@ -46,7 +46,7 @@ T Channel<T>::Read()
 }
 
 template<class T>
-void Channel<T>::UnblockAllandDisable()
+void Channel<T>::UnblockAllandDisable() // decomission channel at end of life, free up any threads waiting on a read
 {
 	if (enabled) {
 		enabled = false;
@@ -57,7 +57,7 @@ void Channel<T>::UnblockAllandDisable()
 }
 
 template<class T>
-void Channel<T>::Clear()
+void Channel<T>::Clear() // empty the channel
 {
 	lock_guard<mutex> lock(mtx);
 	buffer.clear();
@@ -66,7 +66,7 @@ void Channel<T>::Clear()
 }
 
 template<class T>
-void Channel<T>::Reset()
+void Channel<T>::Reset() // clean the channel so it can be reused
 {
 	Clear();
 	enabled = true;
