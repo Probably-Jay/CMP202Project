@@ -1,144 +1,39 @@
-#include "FunctionTimer.h"
+// Created by Jake Bretherton 1800231 University of abertay CMP202 coursework 2020
+
+#include "PasswordCracker.h"
+
 #include <iostream>
 #include <thread>
 #include <string>
 
-#include "PasswordCracker.h"
-
-
-#include <mutex>
-
-#include <thread>
-
-#include <chrono>
-#include <functional>
-#include <array>
-
-
-using std::lock;
-using std::thread;
-using std::mutex;
 using std::cout;
+using std::cin;
 using std::endl;
 using std::hash;
 using std::string;
-using std::array;
 
-
-
-Channel<int> chan(3);
-
-mutex coutMutex;
-
-
-string currentPasswordRoot = "";
-
-//void UpdatePasswordRoot()
-//{
-//
-//
-//	int len = currentPasswordRoot.length();
-//
-//	if (len == 0) {
-//		currentPasswordRoot = MINCHAR;
-//		return;
-//	}
-//	int end = len - 1;
-//
-//	for (int i = end; i >= 0; i--) { // for each letter in root, starting at far right
-//		if (currentPasswordRoot[i] < MAXCHAR) {  // if letter is less than max
-//
-//			currentPasswordRoot = currentPasswordRoot.substr(0, i) + (char)(currentPasswordRoot[i] + 1) + currentPasswordRoot.substr(i + 1, end - i);
-//
-//			return;
-//		}
-//		else {
-//			currentPasswordRoot[i] = MINCHAR; // set that letter to the start
-//
-//		}
-//	} // we have reached the begining of the root and not yet returned
-//	currentPasswordRoot = MINCHAR + currentPasswordRoot;
-//
-//
-//
-//
-//}
-
-
-
-
-
-//int main() {
-//	for (size_t i = 0; i < 1; i++)
-//	{
-//		auto beginTime = high_resolution_clock::now();
-//
-//
-//		PasswordCracker cracker;
-//
-//		string password = "~ss";
-//
-//		size_t hashedPassword = hash<string>{}(password);
-//
-//		//cout << "looking for: \"" << password << "\", hash: " << hashedPassword << endl;
-//		string foundPassword = cracker.CrackPassword(hashedPassword);
-//
-//		auto endTime = high_resolution_clock::now();
-//		auto elapsedTime = duration_cast<duration<double>>(endTime - beginTime);
-//		auto time = (elapsedTime.count());
-//
-//
-//		cout << time << endl;
-//	}
-//
-//
-//}
-
-
-
-class fish {
-public:
-	void hoo() {
-		cout << "hoo" << endl;
-	}
-};
 
 int main() {
-	FunctionTimer ft;
-	PasswordCracker crac{  };
-	//crac.targetHash = hash<string>{}("hgew");
-	//char c = ' ';
-	//crac.generatorThreads.push_back(new PasswordGeneratorThreadWrapper{ &crac.passwordTextOutChannel,&crac.generationBarrier,' ','~' });
-	//Channel<PasswordCracker::PasswordHashPair>* chan;// = new Channel<PasswordCracker::PasswordHashPair>{};
-	//Channel<string>* chan;
-	{
-		const int itt1 = 3;
-		const int rep = 1;
-		string pass = "55555";
-		auto has = hash<string>{}(pass);
-		ft.RunNewTiming<PasswordCracker>("Crack-optimised-" + pass + "--", &PasswordCracker::CrackPassword, &crac, itt1, rep, has);
 
-		//cout << crac.CrackPassword(hash<string>{}("i"))<< endl;
-		//cout << crac.CrackPassword(hash<string>{}("i"))<< endl;
+	PasswordCracker passwordCracker{  }; // password cracker object
+	string* password = new string{}; // the password we will be searching for
+
+	cout << "Please enter a password to be hashed (it is reccomended to choose a password Length < 4): ";
+	cin >> *password;
+
+	auto hashedPassword = hash<string>{}(*password); // hash the password (one way operation)
+
+	// just to prove the password cracker is not in some way cheating, delete the password
+	delete password;
+	password = nullptr;
+
+	cout  << endl << "The hash of this password is " << hashedPassword << endl << " attempting to crack this hash (this may take some time)..." << endl;
+	
+	string output = passwordCracker.CrackPassword(hashedPassword); // crack the pasword
+
+	cout << endl << "The found password was: \"" << output <<"\""<< endl <<endl;
+
 		
-
-
-
-		/*ft.RunNewTiming<PasswordGeneratorThreadWrapper, bool, char&>("generation in work ", &PasswordGeneratorThreadWrapper::addOne, (crac.generatorThreads[0]), itt, rep, c);
-		ft.RunNewTiming<PasswordCracker>("generation out work", &PasswordCracker::UpdatePasswordRootAndSeg, &crac, itt, rep);
-
-		ft.RunNewTiming<PasswordCracker>("hash work ", &PasswordCracker::PerformHash, &crac, itt, rep);
-
-
-		ft.RunNewTiming<PasswordCracker>("comparison work", &PasswordCracker::CompareHashToTarget, &crac, itt, rep);*/
-
-		//	ft.RunNewTiming<PasswordGeneratorThreadWrapper, bool, char&>("generation in work + write ", &PasswordGeneratorThreadWrapper::addOne, (crac.generatorThreads[0]), itt, rep, c);
-		//
-		//	ft.RunNewTiming<PasswordCracker>("hash work + readWrite", &PasswordCracker::PerformHash, &crac, itt, rep);
-		//
-		//	ft.RunNewTiming<PasswordCracker>("comparison work", &PasswordCracker::CompareHashToTarget, &crac, itt, rep);
-
-	}
 }
 
 

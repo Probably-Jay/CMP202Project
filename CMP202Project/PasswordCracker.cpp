@@ -35,6 +35,7 @@ PasswordCracker::~PasswordCracker()
 
 string PasswordCracker::CrackPassword(std::size_t _hash)
 {
+	Reset();
 
 	targetHash = _hash;
 	active = true;
@@ -57,8 +58,7 @@ string PasswordCracker::CrackPassword(std::size_t _hash)
 	JoinThreads(hashThreads);
 	JoinThreads(comparisonThreads);
 
-	//GeneratePasswordGuesses();
-	Reset();
+	
 
 
 	return foundPassword;
