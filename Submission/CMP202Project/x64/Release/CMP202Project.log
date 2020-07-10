@@ -1,0 +1,45 @@
+﻿  FunctionTimer.cpp
+  PasswordCracker.cpp
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(121,46): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(121,40): warning C4244: 'initializing': conversion from 'float' to 'const int', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(134,46): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\PasswordCracker.cpp(134,46): warning C4267: 'initializing': conversion from 'size_t' to 'const int', possible loss of data
+  Source.cpp
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingDataMember.tpp(37,39): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingDataMember.tpp(15): message : while compiling class template member function 'void TimingDataMember<T_caller,T_ret,size_t>::RunFunctionTiming(const int,const int,T_caller *,size_t)'
+          with
+          [
+              T_caller=PasswordCracker,
+              T_ret=std::string
+          ]
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\FunctionTimer.h(83): message : see reference to function template instantiation 'void TimingDataMember<T_caller,T_ret,size_t>::RunFunctionTiming(const int,const int,T_caller *,size_t)' being compiled
+          with
+          [
+              T_caller=PasswordCracker,
+              T_ret=std::string
+          ]
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\FunctionTimer.h(77): message : see reference to class template instantiation 'TimingDataMember<T_caller,T_ret,size_t>' being compiled
+          with
+          [
+              T_caller=PasswordCracker,
+              T_ret=std::string
+          ]
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\Source.cpp(119): message : see reference to function template instantiation 'TimingData *FunctionTimer::RunNewTiming<PasswordCracker,std::string,size_t>(std::string,T_ret (__cdecl PasswordCracker::* )(size_t),T_caller *,const int,const int,size_t)' being compiled
+          with
+          [
+              T_ret=std::string,
+              T_caller=PasswordCracker
+          ]
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingDataMember.tpp(37,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  TimingData.cpp
+C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\CMP202Project\TimingData.cpp(70,48): warning C4244: '=': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+  Generating code
+  2 of 873 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  CMP202Project.vcxproj -> C:\Users\Tor Bretherton\Documents\Jake\Uni Year 2\CMP202\CMP202Project\x64\Release\CMP202Project.exe
